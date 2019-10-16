@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:id="@+id/llLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/llLoginPadding">
+
+        <TextView
+            android:id="@+id/tvUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tvLoginMarginTop"
+            android:text="@string/tvUser" />
+
+        <EditText
+            android:id="@+id/edUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/edUser"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress|textAutoComplete" />
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tvPassword" />
+
+        <EditText
+            android:id="@+id/edPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/edPassword"
+            android:importantForAutofill="no"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/chRemember"
+                style="@style/CheckBoxLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/chRemember" />
+
+            <!-- It can be done by applying the
+            android:background="@android:color/transparent" property-->
+            <Button
+                android:id="@+id/btSignUp"
+                style="@style/Widget.Button.Transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btSignUp" />
+        </LinearLayout>
+
+        <!-- android:background="@drawable/list_shape"-->
+        <Button
+            android:id="@+id/btSignIn"
+            style="@style/Material.Button"
+            android:background="@drawable/selector_round_corner"
+            android:layout_width="@dimen/btLoginSignInWidth"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/btSignIn" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvOtherLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/imgbtLoginMargin"
+            android:text="@string/tvOtherLogin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btGoogle"
+                style="@style/ImageButton.Login"
+                android:layout_width="@dimen/imgbtLoginWidth"
+                android:layout_height="@dimen/imgbtLoginWidth"
+                android:layout_marginHorizontal="@dimen/imgbtLoginMargin"
+                android:contentDescription="@string/btGoogleDesc"
+                android:src="@drawable/ic_google"
+                tools:targetApi="o" />
+
+            <ImageButton
+                android:id="@+id/btFacebook"
+                style="@style/ImageButton.Login"
+                android:layout_width="@dimen/imgbtLoginWidth"
+                android:layout_height="@dimen/imgbtLoginWidth"
+                android:layout_marginHorizontal="@dimen/imgbtLoginMargin"
+                android:contentDescription="@string/btFacebookDesc"
+                android:src="@drawable/ic_facebook"
+                tools:targetApi="o" />
+
+            <ImageButton
+                android:id="@+id/btTwitter"
+                style="@style/ImageButton.Login"
+                android:layout_width="@dimen/imgbtLoginWidth"
+                android:layout_height="@dimen/imgbtLoginWidth"
+                android:layout_marginHorizontal="@dimen/imgbtLoginMargin"
+                android:contentDescription="@string/btTwitterDesc"
+                android:src="@drawable/ic_twitter"
+                tools:targetApi="o" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
+
+

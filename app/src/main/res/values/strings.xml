@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Inventory</string>
+
+    <!-- Splash Activity -->
+    <string name="ivLogoDesc">Inventory Logo (C)2019</string>
+
+    <!-- Login Activity -->
+    <string name="chRemember">Remember me</string>
+    <string name="btSignUp"><u>Sign Up</u></string>
+    <string name="btSignIn">Sign In</string>
+    <string name="edPassword">*******</string>
+    <string name="tvPassword">Password</string>
+    <string name="edUser" />
+    <string name="tvUser">User name/e-mail address</string>
+    <string name="tvOtherLogin">Or sign up with…</string>
+    <string name="btGoogleDesc">SignUp with Google</string>
+    <string name="btFacebookDesc">SignUp with Facebook</string>
+    <string name="btTwitterDesc">SignUp with Twitter</string>
+
+    <!-- DashBoard Activity -->
+    <string name="btDependencies">Dependency</string>
+    <string name="btSections">Section</string>
+    <string name="btSettings">Settings</string>
+    <string name="btProducts">Products</string>
+    <string name="btProfile">Profile</string>
+    <string name="btHelp">Help</string>
+
+
+</resources>

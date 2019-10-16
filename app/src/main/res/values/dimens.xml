@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pattern to follow when naming dimensions [typeComponentActivityAttribute] -->
+<resources>
+    <dimen name="llLoginPadding">16dp</dimen>
+    <dimen name="tvLoginMarginTop">24dp</dimen>
+
+    <dimen name="btLoginSignInWidth">150dp</dimen>
+
+    <dimen name="imgbtLoginWidth">40dp</dimen>
+    <dimen name="imgbtLoginHeigth">40dp</dimen>
+    <dimen name="imgbtLoginMargin">10dp</dimen>
+
+
+</resources>
