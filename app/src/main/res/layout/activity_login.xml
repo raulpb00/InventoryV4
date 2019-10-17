@@ -71,7 +71,6 @@
         <Button
             android:id="@+id/btSignIn"
             style="@style/Material.Button"
-            android:background="@drawable/selector_round_corner"
             android:layout_width="@dimen/btLoginSignInWidth"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

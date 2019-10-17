@@ -11,7 +11,7 @@
     <string name="edPassword">*******</string>
     <string name="tvPassword">Password</string>
     <string name="edUser" />
-    <string name="tvUser">User name/e-mail address</string>
+    <string name="tvUser">Username / e-mail address</string>
     <string name="tvOtherLogin">Or sign up with…</string>
     <string name="btGoogleDesc">SignUp with Google</string>
     <string name="btFacebookDesc">SignUp with Facebook</string>
@@ -24,6 +24,12 @@
     <string name="btProducts">Products</string>
     <string name="btProfile">Profile</string>
     <string name="btHelp">Help</string>
+
+    <!-- SignUp Activity -->
+    <string name="tilEdUser">Username</string>
+    <string name="tilEdPassword1">Password</string>
+    <string name="tilEdPassword2">Repeat Password</string>
+    <string name="tilEdEmail">Email</string>
 
 
 </resources>
