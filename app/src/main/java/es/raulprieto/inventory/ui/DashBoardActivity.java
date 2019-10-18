@@ -1,4 +1,4 @@
-package es.raulprieto.inventory;
+package es.raulprieto.inventory.ui;
 
 import android.os.Bundle;
 
@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.databinding.ActivityDashboardBinding;
 
 /**

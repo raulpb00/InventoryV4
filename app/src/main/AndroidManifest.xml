@@ -13,21 +13,21 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:theme="@style/AppTheme.SplashTheme">
+
+        </activity>
+        <activity android:name=".ui.LoginActivity">
+
+        </activity>
+        <activity android:name=".ui.SignUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
-
-        </activity>
-        <activity android:name=".SignUpActivity">
-
-        </activity>
-        <activity android:name=".DashBoardActivity">
+        <activity android:name=".ui.DashBoardActivity">
 
         </activity>
 

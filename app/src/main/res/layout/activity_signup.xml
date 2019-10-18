@@ -44,7 +44,8 @@
                 android:id="@+id/edPassword1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/tilEdPassword1" />
+                android:hint="@string/tilEdPassword1"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +64,8 @@
                 android:id="@+id/edPassword2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/tilEdPassword2" />
+                android:hint="@string/tilEdPassword2"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
