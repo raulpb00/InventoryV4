@@ -29,11 +29,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPassword1"
+            android:id="@+id/tilPassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
-            app:counterMaxLength="15"
+            app:counterMaxLength="12"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="@+id/tilUser"
             app:layout_constraintStart_toStartOf="@+id/tilUser"
@@ -41,46 +41,27 @@
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edPassword1"
+                android:id="@+id/edPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/tilEdPassword1"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPassword2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:counterEnabled="true"
-            app:counterMaxLength="15"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="@+id/tilPassword1"
-            app:layout_constraintStart_toStartOf="@+id/tilPassword1"
-            app:layout_constraintTop_toBottomOf="@+id/tilPassword1"
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edPassword2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/tilEdPassword2"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
+        
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="@+id/tilPassword2"
-            app:layout_constraintStart_toStartOf="@+id/tilPassword2"
-            app:layout_constraintTop_toBottomOf="@+id/tilPassword2">
+            app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+            app:layout_constraintStart_toStartOf="@+id/tilPassword"
+            app:layout_constraintTop_toBottomOf="@+id/tilPassword">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:hint="@string/tilEdEmail" />
         </com.google.android.material.textfield.TextInputLayout>
 

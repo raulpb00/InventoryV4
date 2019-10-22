@@ -1,5 +1,6 @@
 package es.raulprieto.inventory.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.google.android.material.textfield.TextInputEditText;
 
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.databinding.ActivitySignupBinding;
@@ -36,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Create a SignUpWatcher object and assign it to each View object
         binding.edUser.addTextChangedListener(new SignUpWatcher(binding.edUser));
-        binding.edPassword2.addTextChangedListener(new SignUpWatcher(binding.edPassword1,binding.edPassword2));
+        binding.edPassword.addTextChangedListener(new SignUpWatcher(binding.edPassword));
         binding.edEmail.addTextChangedListener(new SignUpWatcher(binding.edUser));
 
 
@@ -59,11 +60,8 @@ public class SignUpActivity extends AppCompatActivity {
      * Method which checks if all of the TextInputLayout fields contents are valid
      */
     private void validate() {
-        if (validateUser(binding.edUser.getText().toString()) && validatePassword(binding.edPassword1.getText().toString(), binding.edPassword2.getText().toString()) && validateEmail(binding.edEmail.getText().toString())) {
+        if (validateEmail(binding.edEmail.getText().toString()) & validatePassword(binding.edPassword.getText().toString()) & validateUser(binding.edUser.getText().toString())) {
 
-            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
             finish();
         } else {
             Toast.makeText(this, "Has cometido un error", Toast.LENGTH_SHORT).show();
@@ -78,50 +76,59 @@ public class SignUpActivity extends AppCompatActivity {
      * @return boolean
      */
     private boolean validateUser(String user) {
-        if (TextUtils.isEmpty(user))
+        if (TextUtils.isEmpty(user)) {
             binding.tilUser.setError(getString(R.string.errUserEmpty));
-
-        return true;
+            requestFocus(binding.edUser);
+            return false;
+        } else {
+            binding.tilUser.setError(null);
+            return true;
+        }
     }
 
     /**
      * This method checks if the password introduced (at both fields) meets requirements:
-     * 1. Same passwords (Password1 == Password2)
-     * 2. Min size is 8, max is 12 and it must have one Capital and one number
-     * 3. Can't be empty (no null)
+     * 1. Min size is 8, max is 12 and it must have one Capital and one number
+     * 2. Can't be empty (no null)
      *
      * @param pass1 Password 1 introduced by the user
-     * @param pass2 Password 2 introduced by the user
      * @return boolean
      */
-    private boolean validatePassword(String pass1, String pass2) {
-
-        return pass1.equals(pass2) && CommonUtils.isPasswordValid(pass1);
+    private boolean validatePassword(String pass1) {
+        if (CommonUtils.isPasswordValid(pass1)) {
+            binding.tilPassword.setError(null);
+            return true;
+        } else {
+            binding.tilPassword.setError(getString(R.string.errPassNotValid));
+            requestFocus(binding.edPassword);
+            return false;
+        }
     }
 
     /**
      * This method checks if the email introduced meets requirements:
+     * 1. It pass our regexp matcher
      *
      * @param email Email introduced by the user
      * @return boolean
      */
     private boolean validateEmail(String email) {
-
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.tilEmail.setError(null);
+            return true;
+        } else {
+            binding.tilEmail.setError(getString(R.string.errEmailNotValid));
+            requestFocus(binding.edEmail);
+            return false;
+        }
     }
 
 
     class SignUpWatcher implements TextWatcher {
         private View view;
-        private View view2;
 
         SignUpWatcher(View view) {
             this.view = view;
-        }
-
-        SignUpWatcher(View view, View view2) {
-            this.view = view;
-            this.view2 = view;
         }
 
         @Override
@@ -140,8 +147,8 @@ public class SignUpActivity extends AppCompatActivity {
                 case R.id.edUser:
                     validateUser(((EditText) view).getText().toString());
                     break;
-                case R.id.edPassword1:
-                    validatePassword(((EditText) view).getText().toString(),((EditText) view2).getText().toString());
+                case R.id.edPassword:
+                    validatePassword(((EditText) view).getText().toString());
                     break;
                 case R.id.edEmail:
                     validateEmail(((EditText) view).getText().toString());
@@ -151,4 +158,29 @@ public class SignUpActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * This method opens the keyboard when a View (TextInputEditText) has got the focus
+     */
+    private void requestFocus(View view) {
+        if (view.requestFocus())
+            showSoftInput(view);
+    }
+        //TODO Evitar que el foco lo tome un elemento distinto al que estoy editando
+    /**
+     * Method that shows the keyboard (softInput)
+     * @param view Element focused
+     */
+    public void showSoftInput(View view) {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(view, 0);
+    }
+
+    /**
+     * Method used to hide the keyboard
+     */
+    public void hiddeSoftInput() {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+    }
+
+
 }

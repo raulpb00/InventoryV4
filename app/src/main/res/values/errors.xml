@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="errUserEmpty">User cannot be empty</string>
+    <string name="errPassNotValid">1 Capital 1 Number Length:8–12</string>
+    <string name="errEmailNotValid">Type a valid email address</string>
 </resources>

@@ -36,5 +36,27 @@ public class LoginActivity extends AppCompatActivity {
 implementation 'com.google.android.material:material:1.0.0'
 ```
 
+#### The SignUp activity will focus a field and show the keyboard if there were any errors at it
+```java
+private boolean validateUser(String user) {
+        if (TextUtils.isEmpty(user)) {
+            binding.tilUser.setError(getString(R.string.errUserEmpty));
+            requestFocus(binding.edUser);
+            
+private void requestFocus(View view) { 
+        if (view.requestFocus())  showSoftInput(view);}
+
+    public void showSoftInput(View view) {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(view, 0); }
+```
+
+#### Added singleTask launchMode at Manifest.xml in order to avoid creating multiple instances of an activity
+```xml
+<activity
+            android:name=".ui.LoginActivity"
+            android:launchMode="singleTask">
+```
+
+
 
     
