@@ -8,6 +8,8 @@
     <color name="colorSecondaryDark">#61cb00</color>
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#000000</color>
+    <color name="textInput">#FF4322</color>
+
 
     <color name="black_overlay">#66000000</color>
 

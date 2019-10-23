@@ -58,5 +58,31 @@ private void requestFocus(View view) {
 ```
 
 
+#### Changed colors of Password Toggle Button and CharacterCounter 
+```xml
+<com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
+            app:counterEnabled="true"
+            app:counterMaxLength="12"
+            app:counterTextAppearance="@style/AppTheme.CharacterCounter"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorPrimaryDark" >
+            
+<style name="AppTheme.CharacterCounter" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+</style>
+```
+
+### Applied theme to SignUp Layout in order to change the focused EditText colors
+```xml
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/TextInputTheme">
+
+<style name="TextInputTheme">
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+    </style>
+```
 
     

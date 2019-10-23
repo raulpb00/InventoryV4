@@ -5,9 +5,9 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:theme="@style/TextInputTheme">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilUser"
@@ -25,7 +25,8 @@
                 android:id="@+id/edUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/tilEdUser" />
+                android:hint="@string/tilEdUser"
+                android:inputType="textAutoComplete" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -34,11 +35,13 @@
             android:layout_height="wrap_content"
             app:counterEnabled="true"
             app:counterMaxLength="12"
+            app:counterTextAppearance="@style/AppTheme.CharacterCounter"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="@+id/tilUser"
             app:layout_constraintStart_toStartOf="@+id/tilUser"
             app:layout_constraintTop_toBottomOf="@+id/tilUser"
-            app:passwordToggleEnabled="true">
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorPrimaryDark">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edPassword"
@@ -47,7 +50,7 @@
                 android:hint="@string/tilEdPassword1"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
-        
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
             android:layout_width="0dp"
@@ -61,16 +64,16 @@
                 android:id="@+id/edEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="@string/tilEdEmail" />
+                android:hint="@string/tilEdEmail"
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btSend"
             style="@style/Material.Button"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/btLoginSignInWidth"
             android:layout_height="wrap_content"
-            android:text="@string/btSignUp"
+            android:text="@string/btSend"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

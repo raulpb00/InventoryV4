@@ -38,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
         // Create a SignUpWatcher object and assign it to each View object
         binding.edUser.addTextChangedListener(new SignUpWatcher(binding.edUser));
         binding.edPassword.addTextChangedListener(new SignUpWatcher(binding.edPassword));
-        binding.edEmail.addTextChangedListener(new SignUpWatcher(binding.edUser));
+        binding.edEmail.addTextChangedListener(new SignUpWatcher(binding.edEmail));
 
 
         // Link Click listener to the button
@@ -61,11 +61,10 @@ public class SignUpActivity extends AppCompatActivity {
      */
     private void validate() {
         if (validateEmail(binding.edEmail.getText().toString()) & validatePassword(binding.edPassword.getText().toString()) & validateUser(binding.edUser.getText().toString())) {
-
             finish();
-        } else {
+        } /*else {
             Toast.makeText(this, "Has cometido un error", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     /**
@@ -166,7 +165,6 @@ public class SignUpActivity extends AppCompatActivity {
         if (view.requestFocus())
             showSoftInput(view);
     }
-        //TODO Evitar que el foco lo tome un elemento distinto al que estoy editando
     /**
      * Method that shows the keyboard (softInput)
      * @param view Element focused

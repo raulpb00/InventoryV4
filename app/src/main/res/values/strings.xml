@@ -30,6 +30,7 @@
     <string name="tilEdPassword1">Password</string>
     <string name="tilEdPassword2">Repeat Password</string>
     <string name="tilEdEmail">Email</string>
+    <string name="btSend">SEND</string>
 
 
 </resources>
