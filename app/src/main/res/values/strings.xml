@@ -24,6 +24,12 @@
     <string name="btProducts">Products</string>
     <string name="btProfile">Profile</string>
     <string name="btHelp">Help</string>
+    <string name="btDependenciesDesc">List and manage Dependencies</string>
+    <string name="btSectionsDesc">List and Manage Sections</string>
+    <string name="btProductsDesc">List and manage Products</string>
+    <string name="btProfileDesc">View and Manage your profile</string>
+    <string name="btHelpDesc">¿How can we help you?</string>
+    <string name="btSettingsDesc">Application Settings</string>
 
     <!-- SignUp Activity -->
     <string name="tilEdUser">Username</string>
@@ -31,6 +37,7 @@
     <string name="tilEdPassword2">Repeat Password</string>
     <string name="tilEdEmail">Email</string>
     <string name="btSend">SEND</string>
+
 
 
 </resources>

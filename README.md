@@ -1,14 +1,17 @@
 # Inventory - Version 1 {UI}
 
-#### Databinding used in all classes.
+> First version of Inventory 2019/2020
 
-Implement in App Graddle File:
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/raulpb00)  [![Commits](https://img.shields.io/github/last-commit/pangeo-data/awesome-open-climate-science.svg?label=last%20contribution)](https://gitlab.com/raulpb00/inventory/commits/master) 
+
+### DataBinding implemented in all classes.
+#### Implement in App Graddle File:
 ```java
 dataBinding{
         enabled true
     }
 ```
-Layout of the Activity where we want to use DataBinding
+#### Layout of the Activity where we want to use DataBinding
 ```xml
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data /> 
@@ -17,7 +20,7 @@ Layout of the Activity where we want to use DataBinding
     </ConstraintLayout>
 </layout>
 ```
-Build project in order to start using the compiled class of the XML Activity (it has its XML name) 
+#### Build project in order to start using the compiled class of the XML Activity (it has its XML name) 
 ```java
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.btSignIn.setOnClickListener( . . .
 ```
+---
 
 #### Added Material Dependencies in order to use TextInputLayout and later ReciclerView. 
 ```java
@@ -72,7 +76,6 @@ private void requestFocus(View view) {
         <item name="android:textColor">@color/colorPrimaryDark</item>
 </style>
 ```
-
 ### Applied theme to SignUp Layout in order to change the focused EditText colors
 ```xml
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,4 +88,11 @@ private void requestFocus(View view) {
     </style>
 ```
 
-    
+
+| ▲ [Top](#) |
+| --- |
+
+
+## License
+
+[![CC0](http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0/)

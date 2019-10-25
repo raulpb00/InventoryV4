@@ -69,6 +69,7 @@
     ?attr/selectableItemBackgroundBorderless can give you an android.view.InflateException, so use the ?android:attr/selectableItemBackground instead -->
     <style name="ImageButton.Login" parent="Widget.AppCompat.ImageButton">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+
     </style>
     <!-- TODO arreglar el efecto Ripple en botones redondos-->
 
