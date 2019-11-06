@@ -2,7 +2,7 @@
 
 > First version of Inventory 2019/2020
 
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/raulpb00)  [![Commits](https://img.shields.io/github/last-commit/pangeo-data/awesome-open-climate-science.svg?label=last%20contribution)](https://gitlab.com/raulpb00/inventory/commits/master) 
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/raulpb00)[![Commits](https://img.shields.io/github/last-commit/pangeo-data/awesome-open-climate-science.svg?label=last%20contribution)](https://gitlab.com/raulpb00/inventory/commits/master) 
 
 ### DataBinding implemented in all classes.
 #### Implement in App Graddle File:
@@ -87,12 +87,19 @@ private void requestFocus(View view) {
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
     </style>
 ```
+### Used unsplash.com in order to get random images as samples 
+    unsplash.it/32/32 gives a random image at every call to that url
 
+
+
+&nbsp; <!-- Line space -->
 
 | ▲ [Top](#) |
 | --- |
 
-
 ## License
 
 [![CC0](http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+## Contact
+<a href="https://www.linkedin.com/in/raulprietobailon"><img src="https://thelinkedinman.com/wp-content/uploads/2016/02/View-my-LinkedIn-profile-image-3-300x140.png" title="LinkedIn" alt="LinkedIn" height="98" width="210" ></a>

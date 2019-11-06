@@ -12,30 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.dependency.DependencyListActivity"></activity>
         <activity
             android:name=".ui.SplashActivity"
-            android:theme="@style/AppTheme.SplashTheme">
-
-        </activity>
+            android:theme="@style/AppTheme.SplashTheme"></activity>
         <activity
             android:name=".ui.LoginActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.SignUpActivity"
-            android:launchMode="singleTask">
-
-        </activity>
+            android:launchMode="singleTask"></activity>
         <activity
             android:name=".ui.DashBoardActivity"
-            android:launchMode="singleTask">
-
-        </activity>
-
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>
