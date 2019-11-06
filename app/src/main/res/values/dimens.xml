@@ -9,5 +9,6 @@
     <dimen name="imgbtLoginHeigth">40dp</dimen>
     <dimen name="imgbtLoginMargin">10dp</dimen>
     <dimen name="letter_icon_size">32dp</dimen>
+    <dimen name="cvItemMinHeight">64dp</dimen>
 
 </resources>
