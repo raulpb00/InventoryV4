@@ -41,6 +41,8 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+
+
         View view = layoutInflater.inflate(R.layout.item_dependency, parent, false);
 
         return new ViewHolder(view);

@@ -1,4 +1,4 @@
-package es.raulprieto.inventory.ui;
+package es.raulprieto.inventory.ui.signup;
 
 import android.content.Context;
 import android.content.Intent;

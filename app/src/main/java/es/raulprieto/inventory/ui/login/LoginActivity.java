@@ -1,4 +1,4 @@
-package es.raulprieto.inventory.ui;
+package es.raulprieto.inventory.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -9,6 +9,8 @@ import android.view.View;
 
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.databinding.ActivityLoginBinding;
+import es.raulprieto.inventory.ui.signup.SignUpActivity;
+import es.raulprieto.inventory.ui.dashboard.DashBoardActivity;
 
 /**
  * Login Activity where we can LogIn by username/mail and password or using Google, Facebook, or Twitter

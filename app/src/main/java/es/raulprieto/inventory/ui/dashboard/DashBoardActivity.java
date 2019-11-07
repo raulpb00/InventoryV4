@@ -1,4 +1,4 @@
-package es.raulprieto.inventory.ui;
+package es.raulprieto.inventory.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;

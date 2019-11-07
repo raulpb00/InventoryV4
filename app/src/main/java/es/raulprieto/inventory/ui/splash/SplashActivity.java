@@ -1,4 +1,4 @@
-package es.raulprieto.inventory.ui;
+package es.raulprieto.inventory.ui.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import es.raulprieto.inventory.R;
+import es.raulprieto.inventory.ui.login.LoginActivity;
 
 
 /***
