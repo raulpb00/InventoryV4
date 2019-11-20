@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.dependency.DependencyActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDependency"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true">
+            <!-- Top App Bars can also be fixed in place and positioned at the same
+            elevation as content. Upon scroll, they can increase elevation and let
+            content scroll behind them. This design pattern is called “Lift On Scroll” -->
+
+            <!-- TODO cambiar theme y quitar toolbar del sistema-->
+            <!-- TODO agregar botón atrás en código -->
+            <!-- TODO Comprobar elevación del liftOnScroll-->
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="top"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|snap">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:fitsSystemWindows="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/margin_fab"
+            android:clickable="true"
+            android:elevation="@dimen/elevation_fab"
+            android:focusable="true"
+            app:srcCompat="@drawable/ic_action_add" />
+
+        <!-- Anchoring the button to the Toolbar would be:
+            app:layout_anchor="@id/app_bar"
+            app:layout_anchorGravity="bottom|right|end"-->
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+
