@@ -19,11 +19,14 @@ import es.raulprieto.inventory.data.db.repository.DependencyRepository;
 public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.ViewHolder> {
 
     private ArrayList<Dependency> list;
-    private OnDependencyClickListener dependencyListener;
+    private OnManageDependencyClickListener dependencyListener;
 
     // Defined a own Listener
-    public interface OnDependencyClickListener{
-        void onClick(Dependency dependency);
+    public interface OnManageDependencyClickListener {
+        // If pressed, a dependency would be edited
+        void onEditDependency(Dependency dependency);
+        // If longpressed, a dependency would be deleted
+        void onDeleteDependency(Dependency dependency);
     }
 
     public DependencyAdapter() {
@@ -97,10 +100,10 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
     }
 
     /**
-     * The OnDependencyClickListener is set by the following method
-     * @param dependencyListener OnDependencyClickListener
+     * The OnManageDependencyClickListener is set by the following method
+     * @param dependencyListener OnManageDependencyClickListener
      */
-    public void setOnDependencyClickListener(OnDependencyClickListener dependencyListener){
+    public void setOnManageDependencyClickListener(OnManageDependencyClickListener dependencyListener){
         this.dependencyListener = dependencyListener;
     }
 
@@ -121,11 +124,18 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
          * Option 2: This method establish the listener to an event of one of the holder components
          * @param dependencyListener listener
          */
-        void bind(final int position, final OnDependencyClickListener dependencyListener) {
+        void bind(final int position, final OnManageDependencyClickListener dependencyListener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dependencyListener.onClick(getItem(position));
+                    dependencyListener.onEditDependency(getItem(position));
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    dependencyListener.onDeleteDependency(getItem(position));
+                    return true; // Return true in order to consume the onClick event
                 }
             });
         }

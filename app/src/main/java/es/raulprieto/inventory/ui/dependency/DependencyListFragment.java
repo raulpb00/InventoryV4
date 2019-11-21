@@ -9,11 +9,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
@@ -25,16 +29,17 @@ public class DependencyListFragment extends Fragment {
     public static final String TAG = "dependencylistfragment";
     private static final int SPAN_COUNT = 3;
     private FragmentDependencyListBinding binding;
+    private FloatingActionButton fab;
 
     private DependencyAdapter dependencyAdapter;
-    private DependencyAdapter.OnDependencyClickListener dependencyListener;
-    private OnAddDependencyListener onAddDependencyListener;
+    private DependencyAdapter.OnManageDependencyClickListener adapterListener; // Delegate to collect Adapter events
+    private OnManageDependencyListener onManageDependencyListener; // Delegate to collect button events
 
     /**
      * Interface which communicates to the listener that the ManageButton was pressed
      */
-    interface OnAddDependencyListener {
-        void onAddDependency();
+    interface OnManageDependencyListener {
+        void onManageDependency(Dependency dependency);
     }
 
     /**
@@ -56,9 +61,9 @@ public class DependencyListFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            onAddDependencyListener = (OnAddDependencyListener) context;
+            onManageDependencyListener = (OnManageDependencyListener) context;
         } catch (Exception e) {
-            throw new ClassCastException(context.toString() + " must implement OnAddDependencyListener");
+            throw new ClassCastException(context.toString() + " must implement OnManageDependencyListener");
         }
     }
 
@@ -75,6 +80,18 @@ public class DependencyListFragment extends Fragment {
 
         View view = binding.getRoot();
 
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+        toolbar.setTitle("Dependency List");
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back,null));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+
         return view;
     }
 
@@ -88,10 +105,13 @@ public class DependencyListFragment extends Fragment {
     }
 
     private void initializeFab() {
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        fab = getActivity().findViewById(R.id.fab);
+        fab.show();
+        fab.setImageResource(R.drawable.ic_action_add);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAddDependencyListener.onAddDependency();
+                onManageDependencyListener.onManageDependency(null);
             }
         });
     }
@@ -113,20 +133,39 @@ public class DependencyListFragment extends Fragment {
         initializeListener();
     }
 
+    /**
+     * Method that initializes the listener which
+     */
     private void initializeListener() {
-        dependencyListener = new DependencyAdapter.OnDependencyClickListener() {
+        adapterListener = new DependencyAdapter.OnManageDependencyClickListener() {
+
+            /**
+             * An item from the list is clicked and ManageDependencyFragment should replace
+             * the actual fragment with the Dependency object to be edited.
+             * @param dependency object pressed
+             */
             @Override
-            public void onClick(Dependency dependency) {
-                Toast.makeText(getActivity(), dependency.getShortName(), Toast.LENGTH_SHORT).show();
+            public void onEditDependency(Dependency dependency) {
+                onManageDependencyListener.onManageDependency(dependency);
+            }
+
+            /**
+             * This method shows a dialog box asking for confirmation to delete the Dependency
+             * @param dependency object longpressed
+             */
+            @Override
+            public void onDeleteDependency(Dependency dependency) {
+                Toast.makeText(getActivity(), "DEP "+dependency.getShortName(), Toast.LENGTH_SHORT).show();
+                // TODO DELETE window
             }
         };
-        dependencyAdapter.setOnDependencyClickListener(dependencyListener);
+        dependencyAdapter.setOnManageDependencyClickListener(adapterListener);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        dependencyListener = null;
-        onAddDependencyListener = null;
+        adapterListener = null;
+        onManageDependencyListener = null;
     }
 }

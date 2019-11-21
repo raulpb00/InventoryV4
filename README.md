@@ -20,6 +20,34 @@ dataBinding{
     </ConstraintLayout>
 </layout>
 ```
+#### Variable created at Data element and set at Java Fragment Class
+```xml
+<data>
+    <variable
+        name="dependency"
+        type="es.raulprieto.inventory.data.db.model.Dependency" />
+</data>
+<com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tedDependencyName"
+                android:text="@{dependency.getName()}"
+...></com.google.android.material.textfield.TextInputLayout>
+```
+```java
+@Override
+public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                         Bundle savedInstanceState) {
+    // Inflate this fragment's layout
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dependency_manage, container, false);
+
+    View view = binding.getRoot();
+
+    Bundle bundle = getArguments();
+    if (bundle != null)
+        binding.setDependency((Dependency) bundle.getSerializable("dependency"));
+
+    return view;
+}
+```
 #### Build project in order to start using the compiled class of the XML Activity (it has its XML name) 
 ```java
 public class LoginActivity extends AppCompatActivity {
