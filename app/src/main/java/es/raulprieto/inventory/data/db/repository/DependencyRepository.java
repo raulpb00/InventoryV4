@@ -2,6 +2,7 @@ package es.raulprieto.inventory.data.db.repository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import es.raulprieto.inventory.data.db.model.Dependency;
 
@@ -38,8 +39,38 @@ public class DependencyRepository {
 
     }
 
-    private void add(Dependency dependency) {
-        list.add(dependency);
+    public boolean add(Dependency dependency) {
+        if (!list.contains(dependency)){
+            list.add(dependency);
+            return true;
+        }else
+            return false;
+    }
+
+    public boolean edit(Dependency dependency) {
+        try {
+            for (Dependency dependencyIt : list) {
+                if (dependencyIt.getShortName().equals(dependency.getShortName())) {
+                    dependencyIt.setName(dependency.getName());
+                    dependencyIt.setDescription(dependency.getDescription());
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean delete(Dependency dependency){
+        Iterator<Dependency> dependencyIterator = list.iterator();
+        while (dependencyIterator.hasNext()){
+            if (dependencyIterator.next().equals(dependency)) {
+                dependencyIterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 
     public Collection<Dependency> getAll() {

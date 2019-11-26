@@ -2,8 +2,10 @@ package es.raulprieto.inventory.data.db.model;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Dependency implements Serializable {
     public static final String TAG = "dependency";
@@ -13,6 +15,10 @@ public class Dependency implements Serializable {
     private String description;
     private String inventory;
     private String uriImage;
+
+    public Dependency() {
+
+    }
 
     public Dependency(String name, String shortName, String description, String inventory, String uriImage) {
         this.name = name;
@@ -66,5 +72,19 @@ public class Dependency implements Serializable {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(shortName);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dependency that = (Dependency) o;
+
+        return shortName.equals(that.shortName);
     }
 }

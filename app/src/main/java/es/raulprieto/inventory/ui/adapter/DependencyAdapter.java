@@ -30,6 +30,7 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
     }
 
     public DependencyAdapter() {
+        // TODO Change to null (MVP)
         this.list = (ArrayList<Dependency>) DependencyRepository.getInstance().getAll();
     }
 

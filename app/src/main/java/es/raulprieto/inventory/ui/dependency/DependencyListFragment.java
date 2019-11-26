@@ -19,12 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
 import es.raulprieto.inventory.databinding.FragmentDependencyListBinding;
 import es.raulprieto.inventory.ui.adapter.DependencyAdapter;
 
-public class DependencyListFragment extends Fragment {
+public class DependencyListFragment extends Fragment implements DependencyListContract.View {
 
     public static final String TAG = "dependencylistfragment";
     private static final int SPAN_COUNT = 3;
@@ -32,6 +34,7 @@ public class DependencyListFragment extends Fragment {
     private FloatingActionButton fab;
 
     private DependencyAdapter dependencyAdapter;
+    private DependencyListContract.Presenter presenter;
     private DependencyAdapter.OnManageDependencyClickListener adapterListener; // Delegate to collect Adapter events
     private OnManageDependencyListener onManageDependencyListener; // Delegate to collect button events
 
@@ -58,16 +61,6 @@ public class DependencyListFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            onManageDependencyListener = (OnManageDependencyListener) context;
-        } catch (Exception e) {
-            throw new ClassCastException(context.toString() + " must implement OnManageDependencyListener");
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
@@ -84,7 +77,7 @@ public class DependencyListFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         toolbar.setTitle("Dependency List");
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back,null));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back, null));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,11 +148,21 @@ public class DependencyListFragment extends Fragment {
              */
             @Override
             public void onDeleteDependency(Dependency dependency) {
-                Toast.makeText(getActivity(), "DEP "+dependency.getShortName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "DEP " + dependency.getShortName(), Toast.LENGTH_SHORT).show();
                 // TODO DELETE window
             }
         };
         dependencyAdapter.setOnManageDependencyClickListener(adapterListener);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            onManageDependencyListener = (OnManageDependencyListener) context;
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString() + " must implement OnManageDependencyListener");
+        }
     }
 
     @Override
@@ -168,4 +171,41 @@ public class DependencyListFragment extends Fragment {
         adapterListener = null;
         onManageDependencyListener = null;
     }
+
+    //region Contract
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showNoData() {
+
+    }
+
+    @Override
+    public void showData(List<Dependency> dependencyList) {
+
+    }
+
+    @Override
+    public void setDependencyManagePresenter(DependencyListContract.Presenter dependencyManagePresenter) {
+        this.presenter = dependencyManagePresenter;
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+    //endregion
 }

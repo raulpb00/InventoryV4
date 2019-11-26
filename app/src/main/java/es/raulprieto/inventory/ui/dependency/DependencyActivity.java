@@ -14,11 +14,15 @@ import es.raulprieto.inventory.databinding.ActivityDependencyBinding;
 
 public class DependencyActivity extends AppCompatActivity implements DependencyListFragment.OnManageDependencyListener {
 
-    ActivityDependencyBinding binding;
+    private ActivityDependencyBinding binding;
 
     // Fragments controlled by the Activity
-    DependencyListFragment dependencyListFragment;
-    DependencyManageFragment dependencyManageFragment;
+    private  DependencyListFragment dependencyListFragment;
+    private DependencyListPresenter dependencyListPresenter;
+
+    private DependencyManageFragment dependencyManageFragment;
+    private DependencyManagePresenter dependencyManagePresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,10 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
         }
 
         fragmentManager.beginTransaction().add(R.id.frameContent, dependencyListFragment, DependencyListFragment.TAG).commit();
+        /************** Contract initialization **************/
+        dependencyListPresenter = new DependencyListPresenter(dependencyListFragment);
+        dependencyListFragment.setDependencyManagePresenter(dependencyListPresenter);
+
     }
 
     private void showManageFragment(Dependency dependency) {
@@ -56,6 +64,10 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
 
         if (dependencyManageFragment == null)
             dependencyManageFragment = (DependencyManageFragment) DependencyManageFragment.newInstance(bundle);
+
+        // After creating the view, it's created the Presenter (contract initialization)
+        dependencyManagePresenter = new DependencyManagePresenter(dependencyManageFragment);
+        dependencyManageFragment.setDependencyManagePresenter(dependencyManagePresenter);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 

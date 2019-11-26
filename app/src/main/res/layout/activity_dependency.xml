@@ -18,7 +18,6 @@
             elevation as content. Upon scroll, they can increase elevation and let
             content scroll behind them. This design pattern is called “Lift On Scroll” -->
 
-            <!-- TODO agregar botón atrás en código -->
             <!-- TODO Comprobar elevación del liftOnScroll-->
 
             <include

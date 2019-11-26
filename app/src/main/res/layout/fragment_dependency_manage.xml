@@ -11,8 +11,8 @@
             type="es.raulprieto.inventory.data.db.model.Dependency" />
     </data>
 
-    <!-- TODO asignar valores del objeto DEPENDENCY a los campos una vez creada la vista-->
-    <!-- TODO crear componentes en base al modelo de negocio de Dependencia-->
+
+<!--    TODO asignar errores -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -68,6 +68,7 @@
             app:layout_constraintStart_toStartOf="@+id/tilDependencyShortName"
             app:layout_constraintTop_toBottomOf="@+id/tilDependencyShortName" />
 
+<!--        TODO Surround with a box as the TextInputLayouts-->
         <Spinner
             android:id="@+id/spInventory"
             android:layout_width="0dp"
@@ -84,6 +85,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:minHeight="120dp"
+            android:layout_marginBottom="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tilDependencyName"
             app:layout_constraintStart_toStartOf="@id/tilDependencyName"
             app:layout_constraintTop_toBottomOf="@+id/spInventory">
