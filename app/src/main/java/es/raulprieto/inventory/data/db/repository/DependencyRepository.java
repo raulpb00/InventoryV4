@@ -40,10 +40,10 @@ public class DependencyRepository {
     }
 
     public boolean add(Dependency dependency) {
-        if (!list.contains(dependency)){
+        if (!list.contains(dependency)) {
             list.add(dependency);
             return true;
-        }else
+        } else
             return false;
     }
 
@@ -62,15 +62,32 @@ public class DependencyRepository {
         }
     }
 
-    public boolean delete(Dependency dependency){
+    public boolean delete(Dependency dependency) {
         Iterator<Dependency> dependencyIterator = list.iterator();
-        while (dependencyIterator.hasNext()){
+        while (dependencyIterator.hasNext()) {
             if (dependencyIterator.next().equals(dependency)) {
                 dependencyIterator.remove();
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Search a Dependency by its shortname as it's an unique key for Dependency
+     *
+     * @param shortname from a Dependency object
+     * @return ¿Already exists?
+     */
+    public boolean exists(String shortname) {
+        boolean exists = false;
+
+        for (Dependency dependencyIt : list)
+            if (dependencyIt.getShortName().equals(shortname))
+                exists = true;
+
+        return exists;
+
     }
 
     public Collection<Dependency> getAll() {

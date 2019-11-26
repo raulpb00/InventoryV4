@@ -29,8 +29,8 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
         void onDeleteDependency(Dependency dependency);
     }
 
+    //TODO null usando MVP
     public DependencyAdapter() {
-        // TODO Change to null (MVP)
         this.list = (ArrayList<Dependency>) DependencyRepository.getInstance().getAll();
     }
 

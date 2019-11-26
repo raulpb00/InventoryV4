@@ -2,7 +2,7 @@
     <string name="app_name">Inventory Fragments</string>
 
     <!-- Splash Activity -->
-    <string name="ivLogoDesc">Inventory Logo (C)2019</string>
+    <string name="ivLogoDesc">Inventory Logo (CC)2019</string>
 
     <!-- Login Activity -->
     <string name="chRemember">Remember me</string>
@@ -38,8 +38,13 @@
     <string name="tilEdEmail">Email</string>
     <string name="btSend">SEND</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Dependency -->
+    <string name="delete_dependency">Delete dependency</string>
+    <string name="delete_body">"Delete the dependency: "</string>
+    <string name="tedDependencyName">Name</string>
+    <string name="tedDependencyShortName">Short Name</string>
+    <string name="tvInventory">Inventory</string>
+    <string name="tedDependencyDescription">Description</string>
 
 
 </resources>

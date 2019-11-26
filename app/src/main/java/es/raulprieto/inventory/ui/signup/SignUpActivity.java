@@ -60,7 +60,9 @@ public class SignUpActivity extends AppCompatActivity {
      * Method which checks if all of the TextInputLayout fields contents are valid
      */
     private void validate() {
-        if (validateEmail(binding.edEmail.getText().toString()) & validatePassword(binding.edPassword.getText().toString()) & validateUser(binding.edUser.getText().toString())) {
+        if (validateEmail(binding.edEmail.getText().toString())
+                & validatePassword(binding.edPassword.getText().toString())
+                & validateUser(binding.edUser.getText().toString())) {
             finish();
         } /*else {
             Toast.makeText(this, "Has cometido un error", Toast.LENGTH_SHORT).show();
@@ -176,7 +178,7 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * Method used to hide the keyboard
      */
-    public void hiddeSoftInput() {
+    public void hideSoftInput() {
         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 

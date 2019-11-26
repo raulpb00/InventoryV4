@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Inventory Fragments</string>
+    <!--<string name="delete_body">"Borrar la dependencia: "</string>
+    <string name="delete_dependency">Borrar dependencia</string>
+    <string name="errDescriptionEmpty">ERROR: Descripción vacía.</string>
+    <string name="errNameEmpty">ERROR: Nombre vacío.</string>
+    <string name="errShortNameEmpty">ERROR: Nombre corto vacío.</string>
+    <string name="errAddDependency">ERROR: Ya existe una dependencia igual.</string>
+    <string name="errDeleteDependency">ERROR: No se ha podido borrar la dependencia</string>
+    <string name="errEditDependency">ERROR: No se ha podido editar la dependencia.</string>-->
 
 </resources>

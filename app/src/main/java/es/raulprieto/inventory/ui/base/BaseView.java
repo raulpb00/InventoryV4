@@ -1,7 +1,7 @@
 package es.raulprieto.inventory.ui.base;
 
 /**
- * Base interface< for all the project views
+ * Base interface for all the project views
  *
  * @param <T>
  */

@@ -4,13 +4,13 @@
     <string name="errPassNotValid">1 Capital 1 Number Length:8–12</string>
     <string name="errEmailNotValid">Type a valid email address</string>
 
-<!--    TODO english -->
-    <string name="errNameEmpty">ERROR: Nombre vacío.</string>
-    <string name="errShortNameEmpty">ERROR: Nombre corto vacío.</string>
-    <string name="errDescriptionEmpty">ERROR: Descripción vacía.</string>
-    <string name="err_add_dependency">ERROR: Ya existe una dependencia igual.</string>
-    <string name="err_edit_dependency">ERROR: No se ha poidido editar la dependencia.</string>
-    <string name="delete_dependency">Borrar dependencia</string>
-    <string name="delete_body">Borrar la dependencia: </string>
-    <string name="err_delete_dependency">ERROR: No se ha podido borrar la dependencia</string>
+    <!-- Manage Dependency -->
+    <string name="errDeleteDependency">ERROR: Could not delete the dependency</string>
+    <string name="errEditDependency">ERROR: Could not edit the dependency</string>
+    <string name="errAddDependency">ERROR: Already exists the same dependency</string>
+    <string name="errShortNameEmpty">ERROR: ShortName empty</string>
+    <string name="errNameEmpty">ERROR: Name empty</string>
+    <string name="errDescriptionEmpty">ERROR: Description empty</string>
+    <string name="errInvalidShortName">ERROR: ShortName does not meet the requirements</string>
+
 </resources>

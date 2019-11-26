@@ -14,7 +14,7 @@ public interface DependencyManageContract {
     }
 
     interface Presenter {
-        void validateDependency(Dependency dependency);
+        boolean validateDependency(Dependency dependency);
 
         void add(Dependency dependency);
 

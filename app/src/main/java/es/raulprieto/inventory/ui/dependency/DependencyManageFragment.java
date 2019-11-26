@@ -19,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
@@ -29,7 +30,7 @@ import es.raulprieto.inventory.databinding.FragmentDependencyManageBinding;
  * https://material.io/develop/android/components/text-input-layout/
  */
 public class DependencyManageFragment extends Fragment implements DependencyManageContract.View {
-    public static final String TAG = "dependencyaddfragment";
+    static final String TAG = "dependencyaddfragment";
 
     private DependencyManageContract.Presenter dependencyManagePresenter;
 
@@ -50,7 +51,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
      * @param bundle Arguments if they exists
      * @return A new instance of fragment DependencyManageFragment.
      */
-    public static Fragment newInstance(Bundle bundle) {
+    static Fragment newInstance(Bundle bundle) {
         DependencyManageFragment fragment = new DependencyManageFragment();
         if (bundle != null)
             fragment.setArguments(bundle);
@@ -63,7 +64,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dependency_manage, container, false);
@@ -75,12 +76,12 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         if (bundle != null) {
             dependency = (Dependency) bundle.getSerializable("dependency");
             binding.setDependency(dependency);
-            binding.tedDependencyShortName.setEnabled(false); // ShortName can't be updated
+            binding.tedDependencyShortName.setEnabled(false); // RN-D5: ShortName can't be updated
             setSpinnerSelection();
             title = "Edit Dependency";
         }
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         toolbar.setTitle(title);
@@ -88,7 +89,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack();
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
             }
         });
 
@@ -106,7 +107,8 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         initializeFab();
     }
 
-    /* TO CHECK, the constraint set works, but I won't find the fab well as it is in another constraint
+    /* TO CHECK, the constraint set works, but It won't find the fab as it has already got another parent
+
     private void changeDescriptionTilConstraint() {
         // Boton no está en el constraint
         constraintSet = new ConstraintSet();
@@ -126,14 +128,21 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         if (dependency == null)
             dependency = new Dependency();
 
-        dependency.setName(binding.tedDependencyName.getText().toString());
-        dependency.setShortName(binding.tedDependencyShortName.getText().toString());
+        dependency.setName(Objects.requireNonNull(binding.tedDependencyName.getText()).toString());
+        dependency.setShortName(Objects.requireNonNull(binding.tedDependencyShortName.getText()).toString());
         dependency.setInventory(binding.spInventory.getSelectedItem().toString());
-        dependency.setDescription(binding.tedDependencyDescription.getText().toString());
+        dependency.setDescription(Objects.requireNonNull(binding.tedDependencyDescription.getText()).toString());
 
         return dependency;
     }
 
+    /**
+     * Method where the fab's onClick is initialized.
+     * <p>
+     * The method dependencyManagePresenter.validateDependency will only return false if
+     * there were any errors with the ShortName so, in order to let the User know,
+     * the error will be set at the TextInputLayout
+     */
     private void initializeFab() {
         fab.show();
         fab.setImageResource(R.drawable.ic_action_save);
@@ -141,7 +150,8 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
             @Override
             public void onClick(View v) {
                 if (isDependencyValid())
-                    dependencyManagePresenter.validateDependency(getDependency());
+                    if (!dependencyManagePresenter.validateDependency(getDependency()))
+                        binding.tilDependencyShortName.setError(getString(R.string.errInvalidShortName));
             }
         });
     }
@@ -160,25 +170,33 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
 
     /**
      * Checks the Dependency Model business rules
+     * RN1: no empty fields
      *
      * @return boolean
      */
     private boolean isDependencyValid() {
-        // RN1: no empty fields
-        if (TextUtils.isEmpty(binding.tedDependencyName.getText().toString())) {
-            showError(getString(R.string.errNameEmpty));
-            return false;
-        }
-        if (TextUtils.isEmpty(binding.tedDependencyShortName.getText().toString())) {
-            showError(getString(R.string.errShortNameEmpty));
-            return false;
-        }
-        if (TextUtils.isEmpty(binding.tedDependencyDescription.getText().toString())) {
-            showError(getString(R.string.errDescriptionEmpty));
-            return false;
-        }
+        boolean isValid = true;
 
-        return true;
+        if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyDescription.getText()).toString())) {
+            binding.tilDependencyDescription.setError(getString(R.string.errDescriptionEmpty));
+            isValid = false;
+            // TODO getfocus on error fields
+        } else
+            binding.tilDependencyDescription.setError(null);
+
+        if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyShortName.getText()).toString())) {
+            binding.tilDependencyShortName.setError(getString(R.string.errShortNameEmpty));
+            isValid = false;
+        } else
+            binding.tilDependencyShortName.setError(null);
+
+        if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyName.getText()).toString())) {
+            binding.tilDependencyName.setError(getString(R.string.errNameEmpty));
+            isValid = false;
+        } else
+            binding.tilDependencyName.setError(null);
+
+        return isValid;
     }
 
 
@@ -211,12 +229,12 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
      */
     @Override
     public void onSuccess() {
-        getActivity().onBackPressed();
+        Objects.requireNonNull(getActivity()).onBackPressed();
     }
     //endregion
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         /*try {
             onDependencySaveListener = (OnDependencySaveListener) context;
