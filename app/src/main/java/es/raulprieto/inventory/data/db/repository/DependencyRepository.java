@@ -12,7 +12,7 @@ public class DependencyRepository {
 
     private DependencyRepository() {
         list = new ArrayList<>();
-        initialize();
+//        initialize();
     }
 
     public static DependencyRepository getInstance() {

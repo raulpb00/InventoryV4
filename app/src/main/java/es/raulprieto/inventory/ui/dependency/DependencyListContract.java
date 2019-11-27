@@ -7,17 +7,23 @@ import es.raulprieto.inventory.ui.base.BaseView;
 
 public interface DependencyListContract {
     interface View extends BaseView<Presenter> {
-        void showProgress();
+        void showProgressBar();
 
-        void hideProgress();
+        void hideProgressBar();
 
-        void showNoData();
+        void showImageNoData();
 
-        void showData(List<Dependency> dependencyList);
+        void hideImageNoData();
+
+        boolean isImageNoDataVisible();
+
+        void clearOutList();
+
+        void onSuccess(List<Dependency> dependencyList);
     }
 
     interface Presenter {
-        void delete(Dependency dependency);
+        boolean delete(Dependency dependency);
 
         void load();
     }

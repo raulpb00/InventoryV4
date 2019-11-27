@@ -97,6 +97,35 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
         initializeFab();
     }
 
+    /**
+     * Requests the data load from the presenter
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.load();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            onManageDependencyListener = (OnManageDependencyListener) context;
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString() + " must implement OnManageDependencyListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        adapterListener = null;
+        onManageDependencyListener = null;
+    }
+
+    //endregion
+
+    //region Initialization
     private void initializeFab() {
         fab = getActivity().findViewById(R.id.fab);
         fab.show();
@@ -148,49 +177,61 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
              */
             @Override
             public void onDeleteDependency(Dependency dependency) {
-                Toast.makeText(getActivity(), "DEP " + dependency.getShortName(), Toast.LENGTH_SHORT).show();
                 // TODO DELETE window
+                if (presenter.delete(dependency)) {
+                    Toast.makeText(getActivity(), "RIP our beloved " + dependency.getShortName(), Toast.LENGTH_SHORT).show();
+                    presenter.load();
+                }
+
             }
         };
         dependencyAdapter.setOnManageDependencyClickListener(adapterListener);
     }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            onManageDependencyListener = (OnManageDependencyListener) context;
-        } catch (Exception e) {
-            throw new ClassCastException(context.toString() + " must implement OnManageDependencyListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        adapterListener = null;
-        onManageDependencyListener = null;
-    }
+    //endregion
 
     //region Contract
     @Override
-    public void showProgress() {
+    public void showProgressBar() {
 
     }
 
     @Override
-    public void hideProgress() {
+    public void hideProgressBar() {
 
     }
 
     @Override
-    public void showNoData() {
-
+    public void showImageNoData() {
+        binding.ivNoDataFound.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showData(List<Dependency> dependencyList) {
+    public void hideImageNoData() {
+        binding.ivNoDataFound.setVisibility(View.GONE);
+    }
 
+    @Override
+    public boolean isImageNoDataVisible() {
+        return binding.ivNoDataFound.getVisibility() == View.VISIBLE;
+    }
+
+    @Override
+    public void clearOutList() {
+        dependencyAdapter.clear();
+        dependencyAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Update adapter in order to show data.
+     *
+     * @param dependencyList from presenter
+     */
+    @Override
+    public void onSuccess(List<Dependency> dependencyList) {
+        dependencyAdapter.clear();
+        dependencyAdapter.loadAll(dependencyList);
+        // Updates the view
+        dependencyAdapter.notifyDataSetChanged();
     }
 
     @Override

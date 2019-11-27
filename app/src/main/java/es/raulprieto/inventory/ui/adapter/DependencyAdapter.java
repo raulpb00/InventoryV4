@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
@@ -29,9 +30,8 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
         void onDeleteDependency(Dependency dependency);
     }
 
-    //TODO null usando MVP
     public DependencyAdapter() {
-        this.list = (ArrayList<Dependency>) DependencyRepository.getInstance().getAll();
+        this.list = new ArrayList<>();
     }
 
     /**
@@ -71,13 +71,21 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
         return list.size();
     }
 
+    public void clear(){
+        list.clear();
+    }
+
+    public void loadAll(List<Dependency> list){
+        this.list.addAll(list);
+    }
+
     /**
      * Returns the Dependency object based on the position given
      *
      * @param position index
      * @return Dependency Item
      */
-    public Dependency getItem(int position) {
+    private Dependency getItem(int position) {
         return list.get(position);
     }
 
