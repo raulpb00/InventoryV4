@@ -15,6 +15,6 @@ public interface DependencyListContract {
 
         void load();
 
-        void undoDelete(Dependency dependency);
+        void undoDelete(Dependency dependency, int position);
     }
 }

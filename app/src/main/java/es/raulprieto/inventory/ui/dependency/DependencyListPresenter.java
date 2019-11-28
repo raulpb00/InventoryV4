@@ -50,8 +50,8 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
     }
 
     @Override
-    public void undoDelete(Dependency dependency) {
-        if(DependencyRepository.getInstance().add(dependency))
+    public void undoDelete(Dependency dependency, int position) {
+        if(DependencyRepository.getInstance().undo(dependency, position))
             view.onSuccessUndo();
 
         // 1. Check if there were no data

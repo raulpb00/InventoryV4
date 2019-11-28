@@ -43,6 +43,7 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
 
     private Dependency deleted; // Stored when deleting and might be used when restoring
     private Dependency undoDeleted; // Stored when deleting
+    private int deletedPosition; // Dependency's index at adapter's List<Dependency> used at UndoAction
 
     /**
      * Interface which communicates to the listener that the ManageButton was pressed
@@ -182,8 +183,8 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
              * @param dependency object longpressed
              */
             @Override
-            public void onDeleteDependency(Dependency dependency) {
-                showDeleteDialog(dependency);
+            public void onDeleteDependency(Dependency dependency, int position) {
+                showDeleteDialog(dependency, position);
             }
         };
         adapter.setOnManageDependencyClickListener(adapterListener);
@@ -194,7 +195,7 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
      *
      * @param dependency to be deleted
      */
-    private void showDeleteDialog(Dependency dependency) {
+    private void showDeleteDialog(Dependency dependency, int position) {
         Bundle bundle = new Bundle();
         bundle.putString(BaseDialogFragment.TITLE, "Deleting Dependency");
         bundle.putString(BaseDialogFragment.MESSAGE, "Do you wish to delete \"" + dependency.getShortName() + "\" dependency?");
@@ -202,6 +203,7 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
         baseDialogFragment.setTargetFragment(this, CODE_DELETE);
         baseDialogFragment.show(getFragmentManager(), BaseDialogFragment.TAG);
         deleted = dependency;
+        deletedPosition = position;
     }
 
     private void showSnackBarDelete() {
@@ -210,16 +212,16 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
                 .setAction(getString(R.string.action_undo), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        undoDelete(undoDeleted);
+                        undoDelete(undoDeleted, deletedPosition);
                     }
                 }).setActionTextColor(getResources().getColor(R.color.colorPrimary, null))
                 .show();
-        // TODO undoDeleted = null; después de desaparecer la barra
+        // TODO undoDeleted = null; deletedPosition = null; después de desaparecer la barra
 
     }
 
-    private void undoDelete(Dependency dependency) {
-        presenter.undoDelete(dependency);
+    private void undoDelete(Dependency dependency, int deletedPosition) {
+        presenter.undoDelete(dependency, deletedPosition);
     }
 
     //endregion
@@ -299,8 +301,8 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
 
     @Override
     public void onSuccessUndo() {
-        //TODO controlar la posición del add, debería ser la posición que tenía antes de eliminarse
-        adapter.add(undoDeleted);
+        // Used deleted dependency position to insert it back on the same position of the adapter list
+        adapter.undo(deletedPosition,undoDeleted);
         adapter.notifyDataSetChanged();
     }
 

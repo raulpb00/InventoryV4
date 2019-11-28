@@ -1,6 +1,7 @@
 package es.raulprieto.inventory.data.db.repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -8,7 +9,7 @@ import es.raulprieto.inventory.data.db.model.Dependency;
 
 public class DependencyRepository {
     private static DependencyRepository instance;
-    private Collection<Dependency> list;
+    private ArrayList<Dependency> list;
 
     private DependencyRepository() {
         list = new ArrayList<>();
@@ -46,6 +47,15 @@ public class DependencyRepository {
     public boolean add(Dependency dependency) {
         if (!list.contains(dependency)) {
             list.add(dependency);
+            return true;
+        } else
+            return false;
+    }
+
+    //TODO si luego usamos sort, esto no será necesario. Sólo será necesario en Adapter. Volver a cambiar a Collections la declaración de la lista.
+    public boolean undo(Dependency dependency, int position) {
+        if (!list.contains(dependency)) {
+            list.add(position, dependency);
             return true;
         } else
             return false;

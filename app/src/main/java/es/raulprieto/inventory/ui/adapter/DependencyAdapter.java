@@ -26,8 +26,9 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
     public interface OnManageDependencyClickListener {
         // If pressed, a dependency would be edited
         void onEditDependency(Dependency dependency);
+
         // If longpressed, a dependency would be deleted
-        void onDeleteDependency(Dependency dependency);
+        void onDeleteDependency(Dependency dependency, int position);
     }
 
     public DependencyAdapter() {
@@ -62,7 +63,7 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
         holder.tvName.setText(getItem(position).getName());
         setLetters(holder, position);
         if (dependencyListener != null)
-            holder.bind(position,dependencyListener);
+            holder.bind(position, dependencyListener);
     }
 
     @Override
@@ -70,11 +71,11 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
         return list.size();
     }
 
-    public void clear(){
+    public void clear() {
         list.clear();
     }
 
-    public void loadAll(List<Dependency> list){
+    public void loadAll(List<Dependency> list) {
         this.list.addAll(list);
     }
 
@@ -84,6 +85,10 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
 
     public void add(Dependency undoDeleted) {
         list.add(undoDeleted);
+    }
+
+    public void undo(int position, Dependency undoDeleted) {
+        list.add(position, undoDeleted);
     }
 
     /**
@@ -99,7 +104,8 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
     /**
      * Method used to show as digits as the shortname has.
      * 1 digit = 1 letter shown. 2 digits = 2 letters shown.
-     * @param holder of the materialLetterIcon
+     *
+     * @param holder   of the materialLetterIcon
      * @param position of the holder
      */
     private void setLetters(ViewHolder holder, int position) {
@@ -117,9 +123,10 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
 
     /**
      * The OnManageDependencyClickListener is set by the following method
+     *
      * @param dependencyListener OnManageDependencyClickListener
      */
-    public void setOnManageDependencyClickListener(OnManageDependencyClickListener dependencyListener){
+    public void setOnManageDependencyClickListener(OnManageDependencyClickListener dependencyListener) {
         this.dependencyListener = dependencyListener;
     }
 
@@ -130,7 +137,7 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
         MaterialLetterIcon mliDependency;
         TextView tvName;
 
-         ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             mliDependency = itemView.findViewById(R.id.materialLetterIcon);
             tvName = itemView.findViewById(R.id.tvName);
@@ -138,6 +145,7 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
 
         /**
          * Option 2: This method establish the listener to an event of one of the holder components
+         *
          * @param dependencyListener listener
          */
         void bind(final int position, final OnManageDependencyClickListener dependencyListener) {
@@ -150,7 +158,7 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    dependencyListener.onDeleteDependency(getItem(position));
+                    dependencyListener.onDeleteDependency(getItem(position), position);
                     return true; // Return true in order to consume the onClick event
                 }
             });
