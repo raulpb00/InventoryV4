@@ -3,28 +3,18 @@ package es.raulprieto.inventory.ui.dependency;
 import java.util.List;
 
 import es.raulprieto.inventory.data.db.model.Dependency;
-import es.raulprieto.inventory.ui.base.BaseView;
+import es.raulprieto.inventory.ui.base.BaseListView;
 
 public interface DependencyListContract {
-    interface View extends BaseView<Presenter> {
-        void showProgressBar();
-
-        void hideProgressBar();
-
-        void showImageNoData();
-
-        void hideImageNoData();
-
-        boolean isImageNoDataVisible();
-
-        void clearOutList();
-
+    interface View extends BaseListView<Presenter> {
         void onSuccess(List<Dependency> dependencyList);
     }
 
     interface Presenter {
-        boolean delete(Dependency dependency);
+        void delete(Dependency dependency);
 
         void load();
+
+        void undoDelete(Dependency dependency);
     }
 }

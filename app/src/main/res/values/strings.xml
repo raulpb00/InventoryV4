@@ -46,5 +46,9 @@
     <string name="tvInventory">Inventory</string>
     <string name="tedDependencyDescription">Description</string>
 
+    <!-- Base Strings -->
+    <string name="tvLoading">Loading…</string>
+    <string name="action_delete">1 item deleted</string>
+    <string name="action_undo">Undo</string>
 
 </resources>

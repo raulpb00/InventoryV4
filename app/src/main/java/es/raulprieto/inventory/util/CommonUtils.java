@@ -1,5 +1,7 @@
 package es.raulprieto.inventory.util;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.regex.Pattern;
 
 /**
@@ -17,4 +19,5 @@ public final class CommonUtils {
 
         return pattern.matcher(password).matches();
     }
+
 }

@@ -215,7 +215,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     }
 
     @Override
-    public void setDependencyManagePresenter(DependencyManageContract.Presenter dependencyManagePresenter) {
+    public void setManagePresenter(DependencyManageContract.Presenter dependencyManagePresenter) {
         this.dependencyManagePresenter = dependencyManagePresenter;
     }
 

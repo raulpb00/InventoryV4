@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 ```java
 implementation 'com.google.android.material:material:1.0.0'
 ```
-
+>Changed on next updates, [see changes](https://github.com/raulpb00/InventoryV2#used-setanchorview-on-material-snackbar-in-order-to-place-it-above-the-floatingactionbuttom)
 #### The SignUp activity will focus a field and show the keyboard if there were any errors at it
 ```java
 private boolean validateUser(String user) {
@@ -118,6 +118,37 @@ private void requestFocus(View view) {
 ### Used unsplash.com in order to get random images as samples 
     unsplash.it/32/32 gives a random image at every call to that url
 
+### Used setAnchorView on material Snackbar in order to place it above the FloatingActionButtom
+>The method setAnchorView was introduced with 1.1.0-alpha01, so for now I'm using 
+```xml
+implementation 'com.google.android.material:material:1.1.0-beta02'
+```
+>Also, as I use MaterialCardViews too I had to change my AppTheme parent to Theme.MaterialComponents
+```xml
+Before
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+    
+After
+    <!-- Material application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+```
+>Then I can use Snackbar and anchor it to a Fab with this code. 
+```java
+Snackbar.make(fab, getString(R.string.action_delete), Snackbar.LENGTH_LONG)
+                .setAnchorView(fab)
+                .setAction(getString(R.string.action_undo), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        undoDelete(undoDeleted);
+                    }
+                })
+                .show();
+```
 
 
 &nbsp; <!-- Line space -->

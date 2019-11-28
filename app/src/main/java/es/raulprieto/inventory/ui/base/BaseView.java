@@ -6,7 +6,7 @@ package es.raulprieto.inventory.ui.base;
  * @param <T>
  */
 public interface BaseView<T> {
-    void setDependencyManagePresenter(T dependencyManagePresenter);
+    void setManagePresenter(T dependencyManagePresenter);
 
     void showError(String error);
 

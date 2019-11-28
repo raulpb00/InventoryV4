@@ -46,7 +46,6 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
-
         View view = layoutInflater.inflate(R.layout.item_dependency, parent, false);
 
         return new ViewHolder(view);
@@ -77,6 +76,14 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
 
     public void loadAll(List<Dependency> list){
         this.list.addAll(list);
+    }
+
+    public void delete(Dependency deleted) {
+        list.remove(deleted);
+    }
+
+    public void add(Dependency undoDeleted) {
+        list.add(undoDeleted);
     }
 
     /**

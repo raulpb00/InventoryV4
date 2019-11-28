@@ -12,5 +12,6 @@
     <dimen name="cvItemMinHeight">64dp</dimen>
     <dimen name="margin_fab">16dp</dimen>
     <dimen name="elevation_fab">6dp</dimen>
+    <dimen name="pbLoading">240dp</dimen>
 
 </resources>

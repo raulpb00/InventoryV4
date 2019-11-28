@@ -42,6 +42,7 @@
             android:layout_margin="@dimen/margin_fab"
             android:clickable="true"
             android:elevation="@dimen/elevation_fab"
+            android:backgroundTint="@color/colorPrimary"
             android:focusable="true"
             app:srcCompat="@drawable/ic_action_add" />
 

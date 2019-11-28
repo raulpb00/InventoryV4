@@ -14,9 +14,21 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
         this.view = view;
     }
 
+    /**
+     * Deleting doesn't affect the filters
+     * Deleting doesn't affect the order
+     *
+     * @param dependency to be deleted
+     */
     @Override
-    public boolean delete(Dependency dependency) {
-        return DependencyRepository.getInstance().delete(dependency);
+    public void delete(Dependency dependency) {
+        // 1. Realize operation at Repository and check the result
+        if (DependencyRepository.getInstance().delete(dependency)) {
+            // 1.1. Check if there is no data
+            if (DependencyRepository.getInstance().getAll().isEmpty())
+                view.showImageNoData();
+            view.onSuccessDeleted();
+        }
     }
 
     @Override
@@ -37,6 +49,16 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
         }.execute();*/
     }
 
+    @Override
+    public void undoDelete(Dependency dependency) {
+        if(DependencyRepository.getInstance().add(dependency))
+            view.onSuccessUndo();
+
+        // 1. Check if there were no data
+        if (view.isImageNoDataVisible())
+            view.hideImageNoData();
+    }
+
     /**
      * We are aware and we will not produce any memory leaks.
      */
@@ -45,6 +67,8 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            if (view.isImageNoDataVisible())
+                view.hideImageNoData();
             view.showProgressBar();
         }
 
@@ -62,11 +86,10 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
         protected void onPostExecute(List<Dependency> dependencies) {
             super.onPostExecute(dependencies);
             view.hideProgressBar();
-            if (dependencies.isEmpty()){
-                view.showImageNoData();
+            if (dependencies.isEmpty()) {
                 view.clearOutList();
-            }
-            else {
+                view.showImageNoData();
+            } else {
                 if (view.isImageNoDataVisible())
                     view.hideImageNoData();
                 view.onSuccess(dependencies);

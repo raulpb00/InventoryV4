@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -25,18 +25,24 @@ import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
 import es.raulprieto.inventory.databinding.FragmentDependencyListBinding;
 import es.raulprieto.inventory.ui.adapter.DependencyAdapter;
+import es.raulprieto.inventory.ui.base.BaseDialogFragment;
 
-public class DependencyListFragment extends Fragment implements DependencyListContract.View {
+public class DependencyListFragment extends Fragment implements DependencyListContract.View, BaseDialogFragment.onFinishDialogListener {
 
     public static final String TAG = "dependencylistfragment";
+    public static final int CODE_DELETE = 300;
+
     private static final int SPAN_COUNT = 3;
     private FragmentDependencyListBinding binding;
     private FloatingActionButton fab;
 
-    private DependencyAdapter dependencyAdapter;
+    private DependencyAdapter adapter;
     private DependencyListContract.Presenter presenter;
     private DependencyAdapter.OnManageDependencyClickListener adapterListener; // Delegate to collect Adapter events
     private OnManageDependencyListener onManageDependencyListener; // Delegate to collect button events
+
+    private Dependency deleted; // Stored when deleting and might be used when restoring
+    private Dependency undoDeleted; // Stored when deleting
 
     /**
      * Interface which communicates to the listener that the ManageButton was pressed
@@ -101,8 +107,9 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
      * Requests the data load from the presenter
      */
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
+        clearOutList();
         presenter.load();
     }
 
@@ -122,7 +129,6 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
         adapterListener = null;
         onManageDependencyListener = null;
     }
-
     //endregion
 
     //region Initialization
@@ -140,14 +146,14 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
 
     private void initializeRecyclerViewDependency() {
         // 1. Create adapter
-        dependencyAdapter = new DependencyAdapter();
+        adapter = new DependencyAdapter();
 
         // 2. Create Recycler's design
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), SPAN_COUNT, RecyclerView.VERTICAL, false);
 
         // 3. Link model to view (Recycler --> Adapter)
-        binding.rvDependency.setAdapter(dependencyAdapter);
+        binding.rvDependency.setAdapter(adapter);
 
         //4. Assign layoutmanager to view
         binding.rvDependency.setLayoutManager(linearLayoutManager);
@@ -177,27 +183,56 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
              */
             @Override
             public void onDeleteDependency(Dependency dependency) {
-                // TODO DELETE window
-                if (presenter.delete(dependency)) {
-                    Toast.makeText(getActivity(), "RIP our beloved " + dependency.getShortName(), Toast.LENGTH_SHORT).show();
-                    presenter.load();
-                }
-
+                showDeleteDialog(dependency);
             }
         };
-        dependencyAdapter.setOnManageDependencyClickListener(adapterListener);
+        adapter.setOnManageDependencyClickListener(adapterListener);
     }
+
+    /**
+     * Method which shows a DialogBox to confirm or dismiss deleting a Dependency
+     *
+     * @param dependency to be deleted
+     */
+    private void showDeleteDialog(Dependency dependency) {
+        Bundle bundle = new Bundle();
+        bundle.putString(BaseDialogFragment.TITLE, "Deleting Dependency");
+        bundle.putString(BaseDialogFragment.MESSAGE, "Do you wish to delete \"" + dependency.getShortName() + "\" dependency?");
+        BaseDialogFragment baseDialogFragment = BaseDialogFragment.newInstance(bundle);
+        baseDialogFragment.setTargetFragment(this, CODE_DELETE);
+        baseDialogFragment.show(getFragmentManager(), BaseDialogFragment.TAG);
+        deleted = dependency;
+    }
+
+    private void showSnackBarDelete() {
+        Snackbar.make(fab, getString(R.string.action_delete), Snackbar.LENGTH_LONG)
+                .setAnchorView(fab)
+                .setAction(getString(R.string.action_undo), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        undoDelete(undoDeleted);
+                    }
+                }).setActionTextColor(getResources().getColor(R.color.colorPrimary, null))
+                .show();
+        // TODO undoDeleted = null; después de desaparecer la barra
+
+    }
+
+    private void undoDelete(Dependency dependency) {
+        presenter.undoDelete(dependency);
+    }
+
     //endregion
 
     //region Contract
     @Override
     public void showProgressBar() {
-
+        binding.pbLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgressBar() {
-
+        binding.pbLoading.setVisibility(View.GONE);
     }
 
     @Override
@@ -217,8 +252,8 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
 
     @Override
     public void clearOutList() {
-        dependencyAdapter.clear();
-        dependencyAdapter.notifyDataSetChanged();
+        adapter.clear();
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -228,14 +263,14 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
      */
     @Override
     public void onSuccess(List<Dependency> dependencyList) {
-        dependencyAdapter.clear();
-        dependencyAdapter.loadAll(dependencyList);
+        adapter.clear();
+        adapter.loadAll(dependencyList);
         // Updates the view
-        dependencyAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void setDependencyManagePresenter(DependencyListContract.Presenter dependencyManagePresenter) {
+    public void setManagePresenter(DependencyListContract.Presenter dependencyManagePresenter) {
         this.presenter = dependencyManagePresenter;
     }
 
@@ -248,5 +283,41 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
     public void onSuccess() {
 
     }
+
+    /**
+     * Method executed when the item is deleted from the repository
+     */
+    @Override
+    public void onSuccessDeleted() {
+        adapter.delete(deleted);
+        adapter.notifyDataSetChanged();
+        undoDeleted = deleted;
+        deleted = null;
+        // Show Undo option as Snackbar
+        showSnackBarDelete();
+    }
+
+    @Override
+    public void onSuccessUndo() {
+        //TODO controlar la posición del add, debería ser la posición que tenía antes de eliminarse
+        adapter.add(undoDeleted);
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * BaseDialogFragment interface
+     */
+    @Override
+    public void onFinishDialog() {
+        deleteDependency();
+    }
+
+    /**
+     * Delete action will delete from repository and adapter, skipping the loading part.
+     */
+    private void deleteDependency() {
+        presenter.delete(deleted);
+    }
+
     //endregion
 }

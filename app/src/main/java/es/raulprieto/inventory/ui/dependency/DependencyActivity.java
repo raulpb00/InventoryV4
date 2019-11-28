@@ -47,7 +47,7 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
         fragmentManager.beginTransaction().add(R.id.frameContent, dependencyListFragment, DependencyListFragment.TAG).commit();
         /************** Contract initialization **************/
         dependencyListPresenter = new DependencyListPresenter(dependencyListFragment);
-        dependencyListFragment.setDependencyManagePresenter(dependencyListPresenter);
+        dependencyListFragment.setManagePresenter(dependencyListPresenter);
 
     }
 
@@ -67,7 +67,7 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
 
         // After creating the view, it's created the Presenter (contract initialization)
         dependencyManagePresenter = new DependencyManagePresenter(dependencyManageFragment);
-        dependencyManageFragment.setDependencyManagePresenter(dependencyManagePresenter);
+        dependencyManageFragment.setManagePresenter(dependencyManagePresenter);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
