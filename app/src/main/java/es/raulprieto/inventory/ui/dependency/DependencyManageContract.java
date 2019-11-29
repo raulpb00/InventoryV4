@@ -11,10 +11,12 @@ public interface DependencyManageContract {
 
     interface View extends BaseView<Presenter> {
         void onSuccessValidate();
+
+        void setShortnameError(int errorStringId);
     }
 
     interface Presenter {
-        boolean validateDependency(Dependency dependency);
+        void validateDependency(Dependency dependency);
 
         void add(Dependency dependency);
 

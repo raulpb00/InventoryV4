@@ -11,100 +11,107 @@
             type="es.raulprieto.inventory.data.db.model.Dependency" />
     </data>
 
-<!-- TODO NestedScrollView para agregar espacio en la descripcion-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:theme="@style/TextInputTheme">
+        android:layout_height="wrap_content"
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDependencyName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tedDependencyName"
-                android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:theme="@style/TextInputTheme"
+            >
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDependencyName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/tedDependencyName"
-                android:inputType="textPersonName"
-                android:singleLine="true"
-                android:text="@{dependency.getName()}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDependencyShortName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="@+id/tilDependencyName"
-            app:layout_constraintStart_toStartOf="@id/tilDependencyName"
-            app:layout_constraintTop_toBottomOf="@id/tilDependencyName">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tedDependencyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/tedDependencyName"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:text="@{dependency.getName()}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tedDependencyShortName"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDependencyShortName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/tedDependencyShortName"
-                android:inputType="textPersonName"
-                android:singleLine="true"
-                android:text="@{dependency.getShortName()}"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="@+id/tilDependencyName"
+                app:layout_constraintStart_toStartOf="@id/tilDependencyName"
+                app:layout_constraintTop_toBottomOf="@id/tilDependencyName">
 
-        <TextView
-            android:id="@+id/tvInventory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tvInventory"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toStartOf="@+id/tilDependencyShortName"
-            app:layout_constraintTop_toBottomOf="@+id/tilDependencyShortName" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tedDependencyShortName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/tedDependencyShortName"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:text="@{dependency.getShortName()}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!--        TODO Surround with a box as the TextInputLayouts-->
-        <Spinner
-            android:id="@+id/spInventory"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:entries="@array/inventoryArray"
-            android:spinnerMode="dialog"
-            app:layout_constraintEnd_toEndOf="@+id/tilDependencyShortName"
-            app:layout_constraintStart_toStartOf="@+id/tvInventory"
-            app:layout_constraintTop_toBottomOf="@+id/tvInventory" />
+            <TextView
+                android:id="@+id/tvInventory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tvInventory"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintStart_toStartOf="@+id/tilDependencyShortName"
+                app:layout_constraintTop_toBottomOf="@+id/tilDependencyShortName" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDependencyDescription"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="64dp"
-            android:minHeight="120dp"
-            app:errorEnabled="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/tilDependencyName"
-            app:layout_constraintStart_toStartOf="@id/tilDependencyName"
-            app:layout_constraintTop_toBottomOf="@+id/spInventory">
+            <!--        TODO Surround with a box as the TextInputLayouts-->
+            <Spinner
+                android:id="@+id/spInventory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/inventoryArray"
+                android:spinnerMode="dialog"
+                app:layout_constraintEnd_toEndOf="@+id/tilDependencyShortName"
+                app:layout_constraintStart_toStartOf="@+id/tvInventory"
+                app:layout_constraintTop_toBottomOf="@+id/tvInventory" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tedDependencyDescription"
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:gravity="top|start"
-                android:hint="@string/tedDependencyDescription"
-                android:inputType="textMultiLine"
-                android:minHeight="120dp"
-                android:scrollbars="vertical"
-                android:text="@{dependency.getDescription()}" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDependencyDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tilDependencyName"
+                app:layout_constraintStart_toStartOf="@id/tilDependencyName"
+                app:layout_constraintTop_toBottomOf="@+id/spInventory">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tedDependencyDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="top|start"
+                    android:hint="@string/tedDependencyDescription"
+                    android:inputType="textMultiLine"
+                    android:minHeight="120dp"
+                    android:scrollbars="vertical"
+                    android:text="@{dependency.getDescription()}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </layout>

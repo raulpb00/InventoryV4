@@ -6,11 +6,11 @@
 
     <!-- Manage Dependency -->
     <string name="errDeleteDependency">ERROR: Could not delete the dependency</string>
-    <string name="errEditDependency">ERROR: Could not edit the dependency</string>
-    <string name="errAddDependency">ERROR: Already exists the same dependency</string>
     <string name="errShortNameEmpty">ERROR: ShortName empty</string>
     <string name="errNameEmpty">ERROR: Name empty</string>
     <string name="errDescriptionEmpty">ERROR: Description empty</string>
-    <string name="errInvalidShortName">ERROR: ShortName does not meet the requirements</string>
+    <string name="errInvalidCharacterShortName">ERROR: ShortName must be Alphanumeric</string>
+    <string name="errInvalidLengthShortName">ERROR: ShortName must contain at least 3 characters</string>
+    <string name="errAlreadyExistsShortName">ERROR: ShortName must be unique</string>
 
 </resources>

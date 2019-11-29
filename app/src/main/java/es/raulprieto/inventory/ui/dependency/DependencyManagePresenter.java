@@ -7,34 +7,28 @@ import es.raulprieto.inventory.data.db.repository.DependencyRepository;
 class DependencyManagePresenter implements DependencyManageContract.Presenter {
     private DependencyManageContract.View view;
 
-
     public DependencyManagePresenter(DependencyManageContract.View view
     ) {
         this.view = view;
     }
 
     /**
-     * Validates RN2,RN3, RN4.
+     * Validates RN2,RN3
      * 2. ShortName has at least 3 characters
      * 3. ShortName doesn't contain any special character
-     * 4. ShortName doesn't exists already
      * <p>
-     * 2 & 3 checked with .matches("^[a-zA-Z0-9]{3,}$")
+     * 3 checked with .matches("^[a-zA-Z0-9]*$")
      *
      * @param dependency to validate
-     * @return isValid
      */
     @Override
-    public boolean validateDependency(Dependency dependency) {
-        boolean isValid = true;
-
-        if (dependency.getShortName().matches("^[a-zA-Z0-9]{3,}$")
-                & !DependencyRepository.getInstance().exists(dependency.getShortName()))
-            view.onSuccessValidate();
+    public void validateDependency(Dependency dependency) {
+        if (dependency.getShortName().length() < 3)
+            view.setShortnameError(R.string.errInvalidLengthShortName);
+        else if (!dependency.getShortName().matches("^[a-zA-Z0-9]*$"))
+            view.setShortnameError(R.string.errInvalidCharacterShortName);
         else
-            isValid = false;
-
-        return isValid;
+            view.onSuccessValidate();
     }
 
     @Override
@@ -42,7 +36,7 @@ class DependencyManagePresenter implements DependencyManageContract.Presenter {
         if (DependencyRepository.getInstance().add(dependency))
             view.onSuccess();
         else
-            view.showError("Something went wrong, Debugging time!");
+            view.setShortnameError(R.string.errAlreadyExistsShortName);
     }
 
     @Override
@@ -52,5 +46,4 @@ class DependencyManagePresenter implements DependencyManageContract.Presenter {
         else
             view.showError("Something went wrong, Debugging time!");
     }
-
 }

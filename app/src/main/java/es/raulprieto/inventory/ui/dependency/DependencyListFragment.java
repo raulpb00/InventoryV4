@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -92,6 +93,11 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
             }
         });
 
+        AppBarLayout appBarLayout = getActivity().findViewById(R.id.app_bar);
+        appBarLayout.setLiftOnScrollTargetViewId(binding.rvDependency.getId());
+
+        fab = getActivity().findViewById(R.id.fab);
+
         return view;
     }
 
@@ -134,7 +140,6 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
 
     //region Initialization
     private void initializeFab() {
-        fab = getActivity().findViewById(R.id.fab);
         fab.show();
         fab.setImageResource(R.drawable.ic_action_add);
         fab.setOnClickListener(new View.OnClickListener() {

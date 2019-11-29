@@ -50,5 +50,6 @@
     <string name="tvLoading">Loading…</string>
     <string name="action_delete">1 item deleted</string>
     <string name="action_undo">Undo</string>
+    <string name="ivNoDataFoundDesc">No data found</string>
 
 </resources>

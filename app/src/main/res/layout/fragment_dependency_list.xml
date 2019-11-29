@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:splitMotionEvents="false"
-        tools:context=".ui.dependency.DependencyActivity">
+        tools:context=".ui.dependency.DependencyActivity"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDependency"
@@ -24,7 +25,8 @@
             android:layout_height="240dp"
             android:layout_gravity="center"
             android:src="@drawable/nodatafound"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:contentDescription="@string/ivNoDataFoundDesc" />
 
         <include
             android:id="@+id/pbLoading"

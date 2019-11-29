@@ -17,7 +17,7 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
     private ActivityDependencyBinding binding;
 
     // Fragments controlled by the Activity
-    private  DependencyListFragment dependencyListFragment;
+    private DependencyListFragment dependencyListFragment;
     private DependencyListPresenter dependencyListPresenter;
 
     private DependencyManageFragment dependencyManageFragment;
@@ -42,9 +42,9 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
         dependencyListFragment = (DependencyListFragment) fragmentManager.findFragmentByTag(DependencyListFragment.TAG);
         if (dependencyListFragment == null) {
             dependencyListFragment = (DependencyListFragment) DependencyListFragment.newInstance(null);
+            fragmentManager.beginTransaction().add(R.id.frameContent, dependencyListFragment, DependencyListFragment.TAG).commit();
         }
 
-        fragmentManager.beginTransaction().add(R.id.frameContent, dependencyListFragment, DependencyListFragment.TAG).commit();
         /************** Contract initialization **************/
         dependencyListPresenter = new DependencyListPresenter(dependencyListFragment);
         dependencyListFragment.setManagePresenter(dependencyListPresenter);
@@ -57,9 +57,9 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
         dependencyManageFragment = (DependencyManageFragment) fragmentManager.findFragmentByTag(DependencyManageFragment.TAG);
         Bundle bundle = null;
 
-        if (dependency != null){
+        if (dependency != null) {
             bundle = new Bundle();
-            bundle.putSerializable(Dependency.TAG,dependency);
+            bundle.putSerializable(Dependency.TAG, dependency);
         }
 
         if (dependencyManageFragment == null)

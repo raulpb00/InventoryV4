@@ -1,7 +1,6 @@
 package es.raulprieto.inventory.data.db.repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -13,11 +12,11 @@ public class DependencyRepository {
 
     private DependencyRepository() {
         list = new ArrayList<>();
-//        initialize();
+        initialize();
         //Debugging
-        add(new Dependency("1º Ciclo Formativo", "1CFGS", "1º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
+        /*add(new Dependency("1º Ciclo Formativo", "1CFGS", "1º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
         add(new Dependency("2º Ciclo Formativo", "2CFGS", "2º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
-
+*/
     }
 
     public static DependencyRepository getInstance() {
@@ -44,8 +43,15 @@ public class DependencyRepository {
 
     }
 
+    /**
+     * RN4.
+     * Adds the dependency if the shortname does not exists already
+     *
+     * @param dependency to add
+     * @return boolean
+     */
     public boolean add(Dependency dependency) {
-        if (!list.contains(dependency)) {
+        if (!exists(dependency)) {
             list.add(dependency);
             return true;
         } else
@@ -88,20 +94,19 @@ public class DependencyRepository {
     }
 
     /**
-     * Search a Dependency by its shortname as it's an unique key for Dependency
+     * Search a Dependency by its shortname as it's an unique key for Dependency Model
      *
-     * @param shortname from a Dependency object
+     * @param dependency to check its shortname
      * @return ¿Already exists?
      */
-    public boolean exists(String shortname) {
+    private boolean exists(Dependency dependency) {
         boolean exists = false;
 
         for (Dependency dependencyIt : list)
-            if (dependencyIt.getShortName().equals(shortname))
+            if (dependencyIt.getShortName().equals(dependency.getShortName()))
                 exists = true;
 
         return exists;
-
     }
 
     public Collection<Dependency> getAll() {

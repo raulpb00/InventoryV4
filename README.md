@@ -149,9 +149,13 @@ Snackbar.make(fab, getString(R.string.action_delete), Snackbar.LENGTH_LONG)
                 })
                 .show();
 ```
+### Added .trim() on all input validations and storages
+```java
+binding.tedDependencyDescription.getText()).toString().trim()
+```
 
-
-&nbsp; <!-- Line space -->
+<!-- Line Space-->
+&nbsp;
 
 | ▲ [Top](#) |
 | --- |

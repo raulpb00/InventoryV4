@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
@@ -61,6 +62,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
@@ -92,6 +94,9 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
                 Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
             }
         });
+
+        AppBarLayout appBarLayout = getActivity().findViewById(R.id.app_bar);
+        appBarLayout.setLiftOnScrollTargetViewId(binding.nestedScrollView.getId());
 
         fab = getActivity().findViewById(R.id.fab);
 
@@ -128,10 +133,10 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         if (dependency == null)
             dependency = new Dependency();
 
-        dependency.setName(Objects.requireNonNull(binding.tedDependencyName.getText()).toString());
-        dependency.setShortName(Objects.requireNonNull(binding.tedDependencyShortName.getText()).toString());
+        dependency.setName(Objects.requireNonNull(binding.tedDependencyName.getText()).toString().trim());
+        dependency.setShortName(Objects.requireNonNull(binding.tedDependencyShortName.getText()).toString().trim());
         dependency.setInventory(binding.spInventory.getSelectedItem().toString());
-        dependency.setDescription(Objects.requireNonNull(binding.tedDependencyDescription.getText()).toString());
+        dependency.setDescription(Objects.requireNonNull(binding.tedDependencyDescription.getText()).toString().trim());
 
         return dependency;
     }
@@ -150,8 +155,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
             @Override
             public void onClick(View v) {
                 if (isDependencyValid())
-                    if (!dependencyManagePresenter.validateDependency(getDependency()))
-                        binding.tilDependencyShortName.setError(getString(R.string.errInvalidShortName));
+                    dependencyManagePresenter.validateDependency(getDependency());
             }
         });
     }
@@ -177,20 +181,20 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     private boolean isDependencyValid() {
         boolean isValid = true;
 
-        if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyDescription.getText()).toString())) {
+        if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyDescription.getText()).toString().trim())) {
             binding.tilDependencyDescription.setError(getString(R.string.errDescriptionEmpty));
             isValid = false;
             // TODO getfocus on error fields
         } else
             binding.tilDependencyDescription.setError(null);
 
-        if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyShortName.getText()).toString())) {
+        if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyShortName.getText()).toString().trim())) {
             binding.tilDependencyShortName.setError(getString(R.string.errShortNameEmpty));
             isValid = false;
         } else
             binding.tilDependencyShortName.setError(null);
 
-        if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyName.getText()).toString())) {
+        if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyName.getText()).toString().trim())) {
             binding.tilDependencyName.setError(getString(R.string.errNameEmpty));
             isValid = false;
         } else
@@ -212,6 +216,11 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
             dependencyManagePresenter.edit(dependency);
         else
             dependencyManagePresenter.add(dependency);
+    }
+
+    @Override
+    public void setShortnameError(int errorStringId) {
+        binding.tilDependencyShortName.setError(getString(errorStringId));
     }
 
     @Override
