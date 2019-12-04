@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -25,12 +27,13 @@ import java.util.Objects;
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
 import es.raulprieto.inventory.databinding.FragmentDependencyManageBinding;
+import es.raulprieto.inventory.ui.base.BaseFragment;
 
 /**
  * Style:
  * https://material.io/develop/android/components/text-input-layout/
  */
-public class DependencyManageFragment extends Fragment implements DependencyManageContract.View {
+public class DependencyManageFragment extends BaseFragment implements DependencyManageContract.View {
     static final String TAG = "dependencyaddfragment";
 
     private DependencyManageContract.Presenter dependencyManagePresenter;
@@ -63,6 +66,13 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear(); // TODO esto no funciona así, corregir sustituyendo el menu
+        inflater.inflate(R.menu.menu_fragment_dependency_manage,menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

@@ -3,8 +3,12 @@ package es.raulprieto.inventory.ui.dependency;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,8 +31,9 @@ import es.raulprieto.inventory.data.db.model.Dependency;
 import es.raulprieto.inventory.databinding.FragmentDependencyListBinding;
 import es.raulprieto.inventory.ui.adapter.DependencyAdapter;
 import es.raulprieto.inventory.ui.base.BaseDialogFragment;
+import es.raulprieto.inventory.ui.base.BaseFragment;
 
-public class DependencyListFragment extends Fragment implements DependencyListContract.View, BaseDialogFragment.onFinishDialogListener {
+public class DependencyListFragment extends BaseFragment implements DependencyListContract.View, BaseDialogFragment.onFinishDialogListener {
 
     public static final String TAG = "dependencylistfragment";
     public static final int CODE_DELETE = 300;
@@ -72,6 +77,29 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        // The next line should be named in order to call the Menu Options Creation
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_dependency_list, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_orderByName:
+                Toast.makeText(getActivity(), "Order by Name", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_orderByInventory:
+                Toast.makeText(getActivity(), "Order by Inventory", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Nullable
@@ -307,7 +335,7 @@ public class DependencyListFragment extends Fragment implements DependencyListCo
     @Override
     public void onSuccessUndo() {
         // Used deleted dependency position to insert it back on the same position of the adapter list
-        adapter.undo(deletedPosition,undoDeleted);
+        adapter.undo(deletedPosition, undoDeleted);
         adapter.notifyDataSetChanged();
     }
 

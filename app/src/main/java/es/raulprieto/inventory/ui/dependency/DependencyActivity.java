@@ -1,8 +1,9 @@
 package es.raulprieto.inventory.ui.dependency;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
@@ -11,8 +12,9 @@ import androidx.fragment.app.FragmentTransaction;
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
 import es.raulprieto.inventory.databinding.ActivityDependencyBinding;
+import es.raulprieto.inventory.ui.base.BaseActivity;
 
-public class DependencyActivity extends AppCompatActivity implements DependencyListFragment.OnManageDependencyListener {
+public class DependencyActivity extends BaseActivity implements DependencyListFragment.OnManageDependencyListener {
 
     private ActivityDependencyBinding binding;
 
@@ -22,7 +24,6 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
 
     private DependencyManageFragment dependencyManageFragment;
     private DependencyManagePresenter dependencyManagePresenter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
             fragmentManager.beginTransaction().add(R.id.frameContent, dependencyListFragment, DependencyListFragment.TAG).commit();
         }
 
-        /************** Contract initialization **************/
+        /* ************ Contract initialization ************* */
         dependencyListPresenter = new DependencyListPresenter(dependencyListFragment);
         dependencyListFragment.setManagePresenter(dependencyListPresenter);
 
