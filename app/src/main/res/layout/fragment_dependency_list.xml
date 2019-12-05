@@ -6,33 +6,35 @@
 
     <data />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:splitMotionEvents="false"
-        tools:context=".ui.dependency.DependencyActivity"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDependency"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_height="match_parent" />
 
         <ImageView
             android:id="@+id/ivNoDataFound"
             android:layout_width="240dp"
             android:layout_height="240dp"
-            android:layout_gravity="center"
+            android:contentDescription="@string/ivNoDataFoundDesc"
             android:src="@drawable/nodatafound"
             android:visibility="gone"
-            android:contentDescription="@string/ivNoDataFoundDesc" />
+            app:layout_constraintBottom_toBottomOf="@+id/rvDependency"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/pbLoading"
             layout="@layout/progressbar_loading"
-            android:visibility="gone" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

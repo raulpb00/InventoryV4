@@ -105,9 +105,6 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
             }
         });
 
-        AppBarLayout appBarLayout = getActivity().findViewById(R.id.app_bar);
-        appBarLayout.setLiftOnScrollTargetViewId(binding.nestedScrollView.getId());
-
         fab = getActivity().findViewById(R.id.fab);
 
 //        changeDescriptionTilConstraint();
