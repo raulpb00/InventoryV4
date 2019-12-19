@@ -113,13 +113,7 @@ public class DependencyListFragment extends BaseFragment implements DependencyLi
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         toolbar.setTitle("Dependency List");
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back, null));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
+
 
         AppBarLayout appBarLayout = getActivity().findViewById(R.id.app_bar);
         appBarLayout.setLiftOnScrollTargetViewId(binding.rvDependency.getId());

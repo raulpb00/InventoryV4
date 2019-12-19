@@ -39,8 +39,12 @@
         <activity
             android:name=".ui.dependency.DependencyActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.ToolbarView"
             android:windowSoftInputMode="adjustResize">
+
+        </activity>
+        <activity
+            android:name=".ui.base.BaseActivity"
+            android:launchMode="singleTask">
 
         </activity>
     </application>

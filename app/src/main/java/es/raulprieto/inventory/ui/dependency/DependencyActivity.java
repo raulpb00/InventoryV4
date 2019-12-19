@@ -11,12 +11,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
-import es.raulprieto.inventory.databinding.ActivityDependencyBinding;
 import es.raulprieto.inventory.ui.base.BaseActivity;
 
 public class DependencyActivity extends BaseActivity implements DependencyListFragment.OnManageDependencyListener {
 
-    private ActivityDependencyBinding binding;
 
     // Fragments controlled by the Activity
     private DependencyListFragment dependencyListFragment;
@@ -28,11 +26,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_dependency);
-
-        setSupportActionBar((Toolbar) binding.toolbar);
-        ((Toolbar) binding.toolbar).setTitle(R.string.app_name);
-        binding.fab.hide();
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_content);
 
         showListFragment();
     }

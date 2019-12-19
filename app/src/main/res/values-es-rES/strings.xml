@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Inventory Fragments</string>
     <!--<string name="delete_body">"Borrar la dependencia: "</string>
     <string name="delete_dependency">Borrar dependencia</string>
     <string name="errDescriptionEmpty">ERROR: Descripción vacía.</string>

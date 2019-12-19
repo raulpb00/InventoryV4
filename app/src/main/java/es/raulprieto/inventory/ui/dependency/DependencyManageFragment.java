@@ -94,20 +94,11 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
         }
 
         Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
         toolbar.setTitle(title);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back, null));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
-            }
-        });
+
 
         fab = getActivity().findViewById(R.id.fab);
 
-//        changeDescriptionTilConstraint();
 
         return view;
     }
@@ -118,18 +109,6 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
 
         initializeFab();
     }
-
-    /* TO CHECK, the constraint set works, but It won't find the fab as it has already got another parent
-
-    private void changeDescriptionTilConstraint() {
-        // Boton no está en el constraint
-        constraintSet = new ConstraintSet();
-        constraintSet.clone(binding.constraintLayout);
-
-        constraintSet.connect(binding.tilDependencyDescription.getId(), ConstraintSet.BOTTOM, fab.getId(), ConstraintSet.TOP, 0);
-//        constraintSet.constrainDefaultHeight(fab.getId(), 200);
-        constraintSet.applyTo(binding.constraintLayout);
-    }*/
 
     /**
      * Collects the data and creates a dependency object, if needed.

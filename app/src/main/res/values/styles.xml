@@ -1,24 +1,22 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="popupMenuStyle">@style/ThemeOverlay.MaterialComponents.Dark</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
     </style>
 
     <!-- We are creating some styles using heredity -->
     <style name="AppTheme.SplashTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
         <item name="android:background">@color/darker</item>
     </style>
 
-    <!-- TODO Corregir fondo en Toolbar (poner oscuro)-->
-    <style name="AppTheme.ToolbarView">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <!-- TODO Corregir fondo en MenuContextual (poner oscuro)-->
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@android:color/darker_gray</item>
     </style>
 
     <!-- Another way to create your Splash Screen using a layer-list to add

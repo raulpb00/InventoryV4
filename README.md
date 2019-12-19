@@ -1,6 +1,6 @@
-# Inventory - Version 2 {Fragments | MVP}
+# Inventory - Version 3 {Navigation Drawer}
 
-> Second version of Inventory 2019/2020
+> Third version of Inventory 2019/2020
 
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/raulpb00)[![Commits](https://img.shields.io/github/last-commit/pangeo-data/awesome-open-climate-science.svg?label=last%20contribution)](https://github.com/raulpb00/InventoryV2/commits/master) 
 

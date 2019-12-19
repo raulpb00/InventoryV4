@@ -12,11 +12,10 @@ public class DependencyRepository {
 
     private DependencyRepository() {
         list = new ArrayList<>();
-        initialize();
+//        initialize();
         //Debugging
-        /*add(new Dependency("1º Ciclo Formativo", "1CFGS", "1º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
+        add(new Dependency("1º Ciclo Formativo", "1CFGS", "1º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
         add(new Dependency("2º Ciclo Formativo", "2CFGS", "2º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
-*/
     }
 
     public static DependencyRepository getInstance() {
