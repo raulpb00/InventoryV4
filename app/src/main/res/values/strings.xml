@@ -64,5 +64,7 @@
     <string name="menu_dependency">Dependency</string>
     <string name="menu_section">Section</string>
     <string name="menu_product">Product</string>
+    <string name="tvUserName" translatable="false">Raúl Prieto</string>
+    <string name="tvEmail" translatable="false">raulaso@gmail.com</string>
 
 </resources>

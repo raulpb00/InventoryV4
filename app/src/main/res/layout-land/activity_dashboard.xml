@@ -4,7 +4,6 @@
 
     <data />
 
-    <!--TODO Dashboard Land color, (quitar texto peque y Nombre en recuadro bien señalado)   -->
     <!-- TODO Demasiado layout...    -->
     <LinearLayout
         android:layout_width="match_parent"

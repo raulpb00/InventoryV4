@@ -13,5 +13,7 @@
     <dimen name="margin_fab">16dp</dimen>
     <dimen name="elevation_fab">6dp</dimen>
     <dimen name="pbLoading">240dp</dimen>
+    <dimen name="header_padding">16dp</dimen>
+    <dimen name="header_padding_top">40dp</dimen>
 
 </resources>

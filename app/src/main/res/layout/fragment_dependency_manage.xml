@@ -11,7 +11,6 @@
             type="es.raulprieto.inventory.data.db.model.Dependency" />
     </data>
 
-<!--TODO margin bottom as FAB's space -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -69,7 +68,7 @@
             app:layout_constraintStart_toStartOf="@+id/tilDependencyShortName"
             app:layout_constraintTop_toBottomOf="@+id/tilDependencyShortName" />
 
-        <!--        TODO Surround with a box as the TextInputLayouts-->
+        <!-- TODO Mirror TextInputLayout's behaviour - Surround with a box -->
         <Spinner
             android:id="@+id/spInventory"
             android:layout_width="0dp"

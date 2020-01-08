@@ -170,7 +170,6 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
         if (TextUtils.isEmpty(Objects.requireNonNull(binding.tedDependencyDescription.getText()).toString().trim())) {
             binding.tilDependencyDescription.setError(getString(R.string.errDescriptionEmpty));
             isValid = false;
-            // TODO getfocus on error fields
         } else
             binding.tilDependencyDescription.setError(null);
 

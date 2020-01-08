@@ -34,10 +34,9 @@ public class BaseActivity extends AppCompatActivity {
         ((Toolbar) binding.content.toolbar).setTitle(R.string.btDependencies);
         // In order to display the Navigation button it must be shown as the Home indicator
         // and then change the action icon
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_menu);
 
-        //TODO No funciona la toolbar correctamente, en fragments sí
         setupNavigationView();
     }
 

@@ -157,6 +157,7 @@ public class DependencyListFragment extends BaseFragment implements DependencyLi
         super.onDetach();
         adapterListener = null;
         onManageDependencyListener = null;
+        undoDeleted = null;
     }
     //endregion
 
@@ -243,8 +244,6 @@ public class DependencyListFragment extends BaseFragment implements DependencyLi
                     }
                 }).setActionTextColor(getResources().getColor(R.color.colorPrimary, null))
                 .show();
-        // TODO undoDeleted = null; deletedPosition = null; después de desaparecer la barra
-
     }
 
     private void undoDelete(Dependency dependency, int deletedPosition) {

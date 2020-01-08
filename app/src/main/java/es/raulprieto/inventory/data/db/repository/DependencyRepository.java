@@ -57,7 +57,7 @@ public class DependencyRepository {
             return false;
     }
 
-    //TODO si luego usamos sort, esto no será necesario. Sólo será necesario en Adapter. Volver a cambiar a Collections la declaración de la lista.
+    //Si luego usamos sort, esto no será necesario. Sólo será necesario en Adapter. Volver a cambiar a Collections la declaración de la lista.
     public boolean undo(Dependency dependency, int position) {
         if (!list.contains(dependency)) {
             list.add(position, dependency);
