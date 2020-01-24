@@ -49,7 +49,6 @@ public class DependencyListFragment extends BaseFragment implements DependencyLi
 
     private Dependency deleted; // Stored when deleting and might be used when restoring
     private Dependency undoDeleted; // Stored when deleting
-    private int deletedPosition; // Dependency's index at adapter's List<Dependency> used at UndoAction
 
     /**
      * Interface which communicates to the listener that the ManageButton was pressed
@@ -231,7 +230,6 @@ public class DependencyListFragment extends BaseFragment implements DependencyLi
         baseDialogFragment.setTargetFragment(this, CODE_DELETE);
         baseDialogFragment.show(getFragmentManager(), BaseDialogFragment.TAG);
         deleted = dependency;
-        deletedPosition = position;
     }
 
     private void showSnackBarDelete() {
@@ -240,14 +238,14 @@ public class DependencyListFragment extends BaseFragment implements DependencyLi
                 .setAction(getString(R.string.action_undo), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        undoDelete(undoDeleted, deletedPosition);
+                        undoDelete(undoDeleted);
                     }
                 }).setActionTextColor(getResources().getColor(R.color.colorPrimary, null))
                 .show();
     }
 
-    private void undoDelete(Dependency dependency, int deletedPosition) {
-        presenter.undoDelete(dependency, deletedPosition);
+    private void undoDelete(Dependency dependency) {
+        presenter.undoDelete(dependency);
     }
 
     //endregion
@@ -328,7 +326,7 @@ public class DependencyListFragment extends BaseFragment implements DependencyLi
     @Override
     public void onSuccessUndo() {
         // Used deleted dependency position to insert it back on the same position of the adapter list
-        adapter.undo(deletedPosition, undoDeleted);
+        adapter.undo(undoDeleted);
         adapter.notifyDataSetChanged();
     }
 

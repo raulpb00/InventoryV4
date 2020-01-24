@@ -1,21 +1,27 @@
 package es.raulprieto.inventory.data.db.repository;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import android.os.AsyncTask;
 
+import androidx.room.OnConflictStrategy;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import es.raulprieto.inventory.data.InventoryDatabase;
+import es.raulprieto.inventory.data.dao.DependencyDao;
 import es.raulprieto.inventory.data.db.model.Dependency;
+import es.raulprieto.inventory.ui.dependency.DependencyListPresenter;
 
 public class DependencyRepository {
     private static DependencyRepository instance;
     private ArrayList<Dependency> list;
+    private DependencyDao dependencyDao;
+    private DependencyListPresenter.DependencyListPresenterListener dependencyListPresenterListener;
+
 
     private DependencyRepository() {
-        list = new ArrayList<>();
-//        initialize();
-        //Debugging
-        add(new Dependency("1º Ciclo Formativo", "1CFGS", "1º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
-        add(new Dependency("2º Ciclo Formativo", "2CFGS", "2º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
+        dependencyDao = InventoryDatabase.getDatabase().dependencyDao();
     }
 
     public static DependencyRepository getInstance() {
@@ -26,89 +32,131 @@ public class DependencyRepository {
     }
 
     private void initialize() {
-        add(new Dependency("1º Ciclo Formativo", "1CFGS", "1º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
-        add(new Dependency("2º Ciclo Formativo", "2CFGS", "2º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
-        add(new Dependency("3º Ciclo Formativo", "3CFGS", "3º Desarrollo de Aplicaciones Multiplataforma", "2018", "unsplash.it/32/32"));
-        add(new Dependency("4º Ciclo Formativo", "4CFGS", "4º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
-        add(new Dependency("5º Ciclo Formativo", "5CFGS", "5º Desarrollo de Aplicaciones Multiplataforma", "2018", "unsplash.it/32/32"));
-        add(new Dependency("6º Ciclo Formativo", "6CFGS", "6º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
-        add(new Dependency("7º Ciclo Formativo", "7CFGS", "7º Desarrollo de Aplicaciones Multiplataforma", "2018", "unsplash.it/32/32"));
-        add(new Dependency("8º Ciclo Formativo", "8CFGS", "8º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
-        add(new Dependency("9º Ciclo Formativo", "9CFGS", "9º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
-        add(new Dependency("10º Ciclo Formativo", "10CFGS", "10º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
-        add(new Dependency("11º Ciclo Formativo", "11CFGS", "11º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
-        add(new Dependency("12º Ciclo Formativo", "12CFGS", "12º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
-        add(new Dependency("13º Ciclo Formativo", "13CFGS", "13º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
+        insert(new Dependency("1º Ciclo Formativo", "1CFGS", "1º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
+        insert(new Dependency("2º Ciclo Formativo", "2CFGS", "2º Desarrollo de Aplicaciones Multiplataforma", "2020", "unsplash.it/32/32"));
+        insert(new Dependency("3º Ciclo Formativo", "3CFGS", "3º Desarrollo de Aplicaciones Multiplataforma", "2018", "unsplash.it/32/32"));
+        insert(new Dependency("4º Ciclo Formativo", "4CFGS", "4º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
+        insert(new Dependency("5º Ciclo Formativo", "5CFGS", "5º Desarrollo de Aplicaciones Multiplataforma", "2018", "unsplash.it/32/32"));
+        insert(new Dependency("6º Ciclo Formativo", "6CFGS", "6º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
+        insert(new Dependency("7º Ciclo Formativo", "7CFGS", "7º Desarrollo de Aplicaciones Multiplataforma", "2018", "unsplash.it/32/32"));
+        insert(new Dependency("8º Ciclo Formativo", "8CFGS", "8º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
+        insert(new Dependency("9º Ciclo Formativo", "9CFGS", "9º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
+        insert(new Dependency("10º Ciclo Formativo", "10CFGS", "10º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
+        insert(new Dependency("11º Ciclo Formativo", "11CFGS", "11º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
+        insert(new Dependency("12º Ciclo Formativo", "12CFGS", "12º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
+        insert(new Dependency("13º Ciclo Formativo", "13CFGS", "13º Desarrollo de Aplicaciones Multiplataforma", "2019", "unsplash.it/32/32"));
 
     }
 
-    /**
-     * RN4.
-     * Adds the dependency if the shortname does not exists already
-     *
-     * @param dependency to add
-     * @return boolean
-     */
-    public boolean add(Dependency dependency) {
-        if (!exists(dependency)) {
-            list.add(dependency);
-            return true;
-        } else
-            return false;
+    public void getList(DependencyListPresenter.DependencyListPresenterListener dependencyListPresenterListener) {
+        if (dependencyListPresenterListener != null)
+            this.dependencyListPresenterListener = dependencyListPresenterListener;
+        new QueryAsyncTask(dependencyListPresenterListener).execute();
     }
 
-    //Si luego usamos sort, esto no será necesario. Sólo será necesario en Adapter. Volver a cambiar a Collections la declaración de la lista.
-    public boolean undo(Dependency dependency, int position) {
-        if (!list.contains(dependency)) {
-            list.add(position, dependency);
-            return true;
-        } else
-            return false;
-    }
+    public List<Dependency> getList() {
+        List<Dependency> list = null;
 
-    public boolean edit(Dependency dependency) {
         try {
-            for (Dependency dependencyIt : list) {
-                if (dependencyIt.getShortName().equals(dependency.getShortName())) {
-                    dependencyIt.setName(dependency.getName());
-                    dependencyIt.setDescription(dependency.getDescription());
-                }
-            }
-            return true;
-        } catch (Exception e) {
+            list = InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getAll()).get();
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
-            return false;
+        } finally {
+            return list;
         }
     }
 
-    public boolean delete(Dependency dependency) {
-        Iterator<Dependency> dependencyIterator = list.iterator();
-        while (dependencyIterator.hasNext()) {
-            if (dependencyIterator.next().equals(dependency)) {
-                dependencyIterator.remove();
-                return true;
-            }
+    public int getCount() {
+        try {
+            return InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getCount()).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        return false;
+        return 0;
     }
 
     /**
      * Search a Dependency by its shortname as it's an unique key for Dependency Model
      *
      * @param dependency to check its shortname
-     * @return ¿Already exists?
+     * @return Searched dependency by its primary key
      */
-    private boolean exists(Dependency dependency) {
-        boolean exists = false;
-
-        for (Dependency dependencyIt : list)
-            if (dependencyIt.getShortName().equals(dependency.getShortName()))
-                exists = true;
-
-        return exists;
+    public boolean findByShortName(Dependency dependency) {
+        dependencyDao.findByShortName(dependency.getShortName());
+        return true;
     }
 
-    public Collection<Dependency> getAll() {
-        return list;
+    /**
+     * Google Solution
+     *
+     * @param dependency to insert
+     * @return if insert was made
+     */
+    public boolean insert(final Dependency dependency) {
+        new InsertAsyncTask().execute(dependency);
+        return true;
+    }
+
+    public boolean update(Dependency dependency) {
+        InventoryDatabase.databaseWriteExecutor.execute(() -> dependencyDao.update(dependency));
+        return true;
+    }
+
+    public boolean delete(Dependency dependency) {
+        InventoryDatabase.databaseWriteExecutor.execute(() -> dependencyDao.delete(dependency));
+        return true;
+    }
+
+    //region Soluciones antiguas
+
+    /*
+     * Google Solution
+     *
+     * @param dependency to insert
+     * @return if insert was made
+     * public boolean insert(final Dependency dependency) {
+     * new InsertAsyncTask().execute(dependency);
+     * return true;
+     * }
+     */
+
+    //endregion
+
+
+    private class QueryAsyncTask extends AsyncTask<Void, Void, List<Dependency>> {
+        private DependencyListPresenter.DependencyListPresenterListener dependencyListPresenterListener;
+
+        public QueryAsyncTask(DependencyListPresenter.DependencyListPresenterListener dependencyListPresenterListener) {
+            this.dependencyListPresenterListener = dependencyListPresenterListener;
+        }
+
+        @Override
+        protected List<Dependency> doInBackground(Void... voids) {
+            return dependencyDao.getAll();
+        }
+
+        @Override
+        protected void onPostExecute(List<Dependency> dependencyList) {
+            super.onPostExecute(dependencyList);
+            dependencyListPresenterListener.onSuccessLoadList(dependencyList);
+        }
+    }
+
+    /**
+     * Insert Async Task.
+     */
+    private class InsertAsyncTask extends AsyncTask<Dependency, Void, Long> {
+
+        @Override
+        protected Long doInBackground(Dependency... dependencies) {
+            Long result = dependencyDao.insert(dependencies[0]);
+
+            if (result == -1)
+                dependencyDao.update(dependencies[0]);
+
+            return null;
+        }
     }
 }

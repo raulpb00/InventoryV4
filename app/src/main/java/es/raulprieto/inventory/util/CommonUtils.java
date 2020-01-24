@@ -13,7 +13,7 @@ public final class CommonUtils {
      * This method checks if the password meets a defined pattern:
      */
     public static boolean isPasswordValid(String password) {
-        final String PASSWORD_REQUISITES = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,12}$"; // If no spaces either, add: (?=\\S+$)
+        final String PASSWORD_REQUISITES = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,12}$"; // If no spaces either, insert: (?=\\S+$)
 
         Pattern pattern = Pattern.compile(PASSWORD_REQUISITES); // Stored Process
 

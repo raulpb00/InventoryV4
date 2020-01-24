@@ -33,7 +33,7 @@ class DependencyManagePresenter implements DependencyManageContract.Presenter {
 
     @Override
     public void add(Dependency dependency) {
-        if (DependencyRepository.getInstance().add(dependency))
+        if (DependencyRepository.getInstance().insert(dependency))
             view.onSuccess();
         else
             view.setShortnameError(R.string.errAlreadyExistsShortName);
@@ -41,7 +41,7 @@ class DependencyManagePresenter implements DependencyManageContract.Presenter {
 
     @Override
     public void edit(Dependency dependency) {
-        if (DependencyRepository.getInstance().edit(dependency))
+        if (DependencyRepository.getInstance().update(dependency))
             view.onSuccess();
         else
             view.showError("Something went wrong, Debugging time!");

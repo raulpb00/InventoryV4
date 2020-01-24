@@ -3,19 +3,31 @@ package es.raulprieto.inventory.data.db.model;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class Dependency implements Serializable {
+    @Ignore
     public static final String TAG = "dependency";
 
+    @NonNull
     private String name;
+    @PrimaryKey
+    @NonNull
     private String shortName;
+    @NonNull
     private String description;
+    @NonNull
     private String inventory;
+    @NonNull
     private String uriImage;
 
+    @Ignore
     public Dependency() {
 
     }

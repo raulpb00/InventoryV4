@@ -87,8 +87,8 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
         list.add(undoDeleted);
     }
 
-    public void undo(int position, Dependency undoDeleted) {
-        list.add(position, undoDeleted);
+    public void undo(Dependency undoDeleted) {
+        list.add(undoDeleted);
     }
 
     /**

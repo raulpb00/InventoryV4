@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Inventory Navigation</string>
+    <string name="app_name">Inventory Room</string>
 
     <!-- Splash Activity -->
     <string name="ivLogoDesc">Inventory Logo (CC)2019</string>
@@ -66,5 +66,7 @@
     <string name="menu_product">Product</string>
     <string name="tvUserName" translatable="false">Raúl Prieto</string>
     <string name="tvEmail" translatable="false">raulaso@gmail.com</string>
+    <string name="channel_name">inventory</string>
+    <string name="channel_description">inventory_room</string>
 
 </resources>

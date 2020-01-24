@@ -1,5 +1,7 @@
 package es.raulprieto.inventory.ui.dependency;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,18 +14,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import es.raulprieto.inventory.InventoryApplication;
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
 import es.raulprieto.inventory.databinding.FragmentDependencyManageBinding;
@@ -52,7 +53,7 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param bundle Arguments if they exists
+     * @param bundle Arguments if they findByShortName
      * @return A new instance of fragment DependencyManageFragment.
      */
     static Fragment newInstance(Bundle bundle) {
@@ -71,7 +72,7 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear(); // TODO esto no funciona así, corregir sustituyendo el menu
-        inflater.inflate(R.menu.menu_fragment_dependency_manage,menu);
+        inflater.inflate(R.menu.menu_fragment_dependency_manage, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -123,6 +124,7 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
         dependency.setShortName(Objects.requireNonNull(binding.tedDependencyShortName.getText()).toString().trim());
         dependency.setInventory(binding.spInventory.getSelectedItem().toString());
         dependency.setDescription(Objects.requireNonNull(binding.tedDependencyDescription.getText()).toString().trim());
+        dependency.setUriImage("unsplash.it/32/32");
 
         return dependency;
     }
@@ -219,10 +221,19 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
     }
 
     /**
-     * It is called from the Presenter after finishing an add/edit action and shows the list.
+     * It is called from the Presenter after finishing an insert/update action and shows the list.
      */
     @Override
     public void onSuccess() {
+        hiddeKeyboard();
+
+        Notification.Builder builder = new Notification.Builder(getActivity(), InventoryApplication.CHANNEL_ID);
+        builder.setContentTitle("Olé")
+                .setContentText("Hello Moto!")
+                .setSmallIcon(R.drawable.ic_dependency)
+                .setAutoCancel(true);
+
+        builder.notify(); // crashea: object not locked by thread before notify()
         Objects.requireNonNull(getActivity()).onBackPressed();
     }
     //endregion
