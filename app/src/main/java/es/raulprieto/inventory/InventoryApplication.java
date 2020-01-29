@@ -15,6 +15,7 @@ public class InventoryApplication extends Application {
     public void onCreate() {
         super.onCreate();
         InventoryDatabase.createDatabase(this);
+        createNotificationChannel();
     }
 
     private void createNotificationChannel() {

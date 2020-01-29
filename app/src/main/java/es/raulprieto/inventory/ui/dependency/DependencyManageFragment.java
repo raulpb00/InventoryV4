@@ -2,7 +2,9 @@ package es.raulprieto.inventory.ui.dependency;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -23,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import es.raulprieto.inventory.InventoryApplication;
 import es.raulprieto.inventory.R;
@@ -227,13 +231,22 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
     public void onSuccess() {
         hiddeKeyboard();
 
-        Notification.Builder builder = new Notification.Builder(getActivity(), InventoryApplication.CHANNEL_ID);
-        builder.setContentTitle("Olé")
-                .setContentText("Hello Moto!")
-                .setSmallIcon(R.drawable.ic_dependency)
-                .setAutoCancel(true);
+        // A PendingIntent has an Intent object within it that defines what it is wanted to
+        // execute when the notification is pressed
 
-        builder.notify(); // crashea: object not locked by thread before notify()
+        Intent intent = new Intent(getActivity(), DependencyActivity.class);
+        intent.putExtra("NOTIFICATION", true);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Dependency.TAG, dependency);
+        intent.putExtras(bundle);
+
+        // PendingIntent object is created
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        BuildNotification(true, true, R.drawable.ic_dependency, "Dependencia agregada", "Dependencia " + dependency.getShortName() + " agregada correctamente.", pendingIntent);
+
         Objects.requireNonNull(getActivity()).onBackPressed();
     }
     //endregion
