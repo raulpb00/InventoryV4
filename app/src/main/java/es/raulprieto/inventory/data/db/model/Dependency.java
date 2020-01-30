@@ -1,6 +1,9 @@
 package es.raulprieto.inventory.data.db.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
@@ -11,7 +14,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Dependency implements Serializable {
+public class Dependency implements Serializable, Parcelable {
     @Ignore
     public static final String TAG = "dependency";
 
@@ -39,6 +42,26 @@ public class Dependency implements Serializable {
         this.description = description;
         this.uriImage = uriImage;
     }
+
+    protected Dependency(Parcel in) {
+        name = in.readString();
+        shortName = in.readString();
+        description = in.readString();
+        inventory = in.readString();
+        uriImage = in.readString();
+    }
+
+    public static final Creator<Dependency> CREATOR = new Creator<Dependency>() {
+        @Override
+        public Dependency createFromParcel(Parcel in) {
+            return new Dependency(in);
+        }
+
+        @Override
+        public Dependency[] newArray(int size) {
+            return new Dependency[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -98,5 +121,19 @@ public class Dependency implements Serializable {
         Dependency that = (Dependency) o;
 
         return shortName.equals(that.shortName);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(shortName);
+        dest.writeString(description);
+        dest.writeString(inventory);
+        dest.writeString(uriImage);
     }
 }

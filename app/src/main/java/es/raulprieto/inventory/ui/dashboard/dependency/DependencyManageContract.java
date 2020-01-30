@@ -1,4 +1,4 @@
-package es.raulprieto.inventory.ui.dependency;
+package es.raulprieto.inventory.ui.dashboard.dependency;
 
 import es.raulprieto.inventory.data.db.model.Dependency;
 import es.raulprieto.inventory.ui.base.BaseView;

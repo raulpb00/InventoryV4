@@ -38,8 +38,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.dependency.DependencyActivity"
-            android:launchMode="singleTask"
+            android:name=".ui.dashboard.dependency.DependencyActivity"
+
             android:windowSoftInputMode="adjustResize">
 
         </activity>

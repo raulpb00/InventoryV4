@@ -4,14 +4,25 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
+@Entity
 public class Section implements Parcelable {
+    @Ignore
     public static final String TAG = "section";
 
+    @NonNull
     private String name;
+    @NonNull
+    @PrimaryKey
     private String shortName;
+    @NonNull
     private String dependency; // Dependency shortname, change to Dependency object
+    @NonNull
     private String description;
+    @NonNull
     private String uriImage;
 
     public Section(String name, String shortName, String dependency, String description, String uriImage) {

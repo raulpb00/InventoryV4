@@ -37,7 +37,7 @@
                 android:id="@+id/frameContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ui.dependency.DependencyActivity" />
+                tools:context=".ui.dashboard.dependency.DependencyActivity" />
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

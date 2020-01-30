@@ -1,7 +1,5 @@
-package es.raulprieto.inventory.ui.dependency;
+package es.raulprieto.inventory.ui.dashboard.dependency;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -28,7 +25,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-import es.raulprieto.inventory.InventoryApplication;
 import es.raulprieto.inventory.R;
 import es.raulprieto.inventory.data.db.model.Dependency;
 import es.raulprieto.inventory.databinding.FragmentDependencyManageBinding;
@@ -236,13 +232,16 @@ public class DependencyManageFragment extends BaseFragment implements Dependency
 
         Intent intent = new Intent(getActivity(), DependencyActivity.class);
         intent.putExtra("NOTIFICATION", true);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP ); // | Intent.FLAG_ACTIVITY_SINGLE_TOP
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Dependency.TAG, dependency);
+        bundle.putParcelable(Dependency.TAG, dependency);
         intent.putExtras(bundle);
 
+        Random random = new Random();
+        int randomRequestCode = random.nextInt(9999-1000)+1000;
+
         // PendingIntent object is created
-        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), randomRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
         BuildNotification(true, true, R.drawable.ic_dependency, "Dependencia agregada", "Dependencia " + dependency.getShortName() + " agregada correctamente.", pendingIntent);

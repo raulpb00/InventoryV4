@@ -1,4 +1,4 @@
-package es.raulprieto.inventory.ui.dependency;
+package es.raulprieto.inventory.ui.dashboard.dependency;
 
 import android.content.Context;
 import android.os.Bundle;

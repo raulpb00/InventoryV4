@@ -1,11 +1,7 @@
-package es.raulprieto.inventory.ui.dependency;
+package es.raulprieto.inventory.ui.dashboard.dependency;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -38,8 +34,8 @@ public class DependencyActivity extends BaseActivity implements DependencyListFr
         // If the intent received has already the FLAG NOTIFICATION = true
         if (getIntent().getBooleanExtra("NOTIFICATION", false)) {
             // Call to showManageFragment with the intent's dependency
-            Bundle bundle =  getIntent().getExtras();
-            showManageFragment((Dependency) bundle.getSerializable(Dependency.TAG));
+            Bundle bundle = getIntent().getExtras();
+            showManageFragment(bundle.getParcelable(Dependency.TAG));
         }
     }
 

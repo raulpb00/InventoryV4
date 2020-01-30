@@ -2,8 +2,6 @@ package es.raulprieto.inventory.data.db.repository;
 
 import android.os.AsyncTask;
 
-import androidx.room.OnConflictStrategy;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -11,7 +9,7 @@ import java.util.concurrent.ExecutionException;
 import es.raulprieto.inventory.data.InventoryDatabase;
 import es.raulprieto.inventory.data.dao.DependencyDao;
 import es.raulprieto.inventory.data.db.model.Dependency;
-import es.raulprieto.inventory.ui.dependency.DependencyListPresenter;
+import es.raulprieto.inventory.ui.dashboard.dependency.DependencyListPresenter;
 
 public class DependencyRepository {
     private static DependencyRepository instance;
